@@ -1,12 +1,12 @@
 # Game - Programming Assignments Private Repository
 ### Student Information
-  + Name: Tommy Trojan
-  + USC Email: ttrojan@usc.edu
-  + USC ID: 0123456789
+  + Name: Clayton Brand
+  + USC Email: cbrand@usc.edu
+  + USC ID: 6893610828
 
 ### Game Information
-  + Game Name: myAwsomeGame
-  + Game Description: One sentence game description
+  + Game Name: SpaceCraft Odyssey: '99 Prime Edition
+  + Game Description: Top-down spaceship shooter game with an aesthetic lifted from Starcraft
   + [Game Design Doc](GameDesignDoc.md)
 
 
@@ -14,7 +14,9 @@
 The grader should use the following procedure to compile and run the code:
 ```shell
 #Compile Instructions
-echo "Write command here"
+qmake -project
+qmake
+make
 #Doxygen Instructions
 echo "Write command here"
 #Command to run
