@@ -36,11 +36,11 @@ There will be two types of items in the game.  The first is a shield which will 
 ## Levels and Sprites
 There will be three levels.  The first level, set against a backdrop of clouds and nature, will have the player encountering "scout" (long-range) and "corsair" (close-range) enemies, with the boss being a "carrier".  The second level, against a city / industrial backdrop, will have the player encountering "valkyrie" (long-range) "wraith" (close-range) enemies, with the boss being a "battlecruiser".  The final level, set against a space backdrop, will have the player encountering all types of previous enemies, and the boss will be an "arbiter".  
 
-![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/master/sprites/toss_scout.gif?login=clay-to-n&token=8a7e798723d61f2b6e77e61a6f674b28 "Long-Range 1: Scout")
-![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/master/sprites/toss_corsair.gif?login=clay-to-n&token=8a7e798723d61f2b6e77e61a6f674b28 "Close-Range 1: Corsair")
+![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/blob/master/sprites/toss_scout.gif?raw=true "Long-Range 1: Scout")
+![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/blob/master/sprites/toss_corsair.gif?raw=true "Close-Range 1: Corsair")
 ![alt text](https://raw.github.com/usc-csci102-spring2013/game_cbrand/master/sprites/terran_valkyrie.gif?login=clay-to-n&token=8a7e798723d61f2b6e77e61a6f674b28 "Long-Range 2: Valkyrie")
-![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/master/sprites/terrain_wraith.gif?login=clay-to-n&token=8a7e798723d61f2b6e77e61a6f674b28 "Close-Range 2: Wraith")
-![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/master/sprites/toss_carrier.gif?login=clay-to-n&token=8a7e798723d61f2b6e77e61a6f674b28 "Boss 1: Carrier")
+![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/blob/master/sprites/terran_wraith.gif?raw=true "Close-Range 2: Wraith")
+![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/blob/master/sprites/toss_carrier.gif?raw=true "Boss 1: Carrier")
 ![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/blob/master/sprites/terran_bc.gif?raw=true "Boss 2: Battlecruiser")
 ![alt text](http://github.com/usc-csci102-spring2013/game_cbrand/master/sprites/toss_arbiter.gif?login=clay-to-n&token=8a7e798723d61f2b6e77e61a6f674b28 "Boss 3: Arbiter")
 
