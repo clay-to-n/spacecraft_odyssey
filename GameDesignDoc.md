@@ -40,7 +40,7 @@ There will be three levels.  The first level, set against a backdrop of clouds a
 
 ![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/blob/master/sprites/toss_corsair.gif "Close-Range 1: Corsair")
 
-![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/blob/master/sprites/terran_valkyrie.gif "Long-Range 2: Valkyrie")
+![alt text](https://raw.github.com/usc-csci102-spring2013/game_cbrand/master/sprites/terran_valkyrie.gif?login=clay-to-n&token=8a7e798723d61f2b6e77e61a6f674b28 "Long-Range 2: Valkyrie")
 
 ![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/blob/master/sprites/terrain_wraith.gif "Close-Range 2: Wraith")
 
