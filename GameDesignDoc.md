@@ -36,26 +36,19 @@ There will be two types of items in the game.  The first is a shield which will 
 ## Levels and Sprites
 There will be three levels.  The first level, set against a backdrop of clouds and nature, will have the player encountering "scout" (long-range) and "corsair" (close-range) enemies, with the boss being a "carrier".  The second level, against a city / industrial backdrop, will have the player encountering "valkyrie" (long-range) "wraith" (close-range) enemies, with the boss being a "battlecruiser".  The final level, set against a space backdrop, will have the player encountering all types of previous enemies, and the boss will be an "arbiter".  
 
-Images are added inline by using the following syntax
 ![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/blob/master/sprites/toss_scout.gif "Long-Range 1: Scout")
 
-Images are added inline by using the following syntax
 ![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/blob/master/sprites/toss_corsair.gif "Close-Range 1: Corsair")
 
-Images are added inline by using the following syntax
 ![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/blob/master/sprites/terran_valkyrie.gif "Long-Range 2: Valkyrie")
 
-Images are added inline by using the following syntax
 ![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/blob/master/sprites/terrain_wraith.gif "Close-Range 2: Wraith")
 
-Images are added inline by using the following syntax
 ![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/blob/master/sprites/toss_carrier.gif "Boss 1: Carrier")
 
-Images are added inline by using the following syntax
 ![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/blob/master/sprites/terran_bc.gif "Boss 2: Battlecruiser")
 
-Images are added inline by using the following syntax
-![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/blob/master/sprites/toss_arbiter.gif "Boss 3: Arbiter")
+![alt text](http://github.com/usc-csci102-spring2013/game_cbrand/blob/master/sprites/toss_arbiter.gif "Boss 3: Arbiter")
 
 
 
