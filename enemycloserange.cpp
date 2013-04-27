@@ -1,29 +1,31 @@
-#include "player.h"
+#include "enemycloserange.h"
 #include "gamewindow.h"
 
-/** Default constructor.  Creates a Player with the specified parameters.
+/** Default constructor.  Creates a EnemyCloseRange with the specified parameters.
 * @param width The width of the tile
 * @param height The height of the tile
 * @param x The x-position of the tile
 * @param y The y-position of the tile
 * @param num The number displayed on the tile
-* @param parent The GameWindow object which created this Player
+* @param parent The GameWindow object which created this EnemyCloseRange
 */
-//Player::Player(int width, int height, int x, int y, GameWindow *parent) :
+//EnemyCloseRange::EnemyCloseRange(int width, int height, int x, int y, GameWindow *parent) :
     //QGraphicsPixmapItem(x, y, width, height) {
 
-Player::Player(QPixmap & pixmap, GameWindow * parent, QGraphicsScene *scene) : Thing(pixmap, 0, 0)
+EnemyCloseRange::EnemyCloseRange(QPixmap & pixmap, GameWindow * parent, QGraphicsScene *scene) : Thing(pixmap, 0, 0)
 { 
-
+    offscreen = false;
+    srand(time(NULL));
     scene_ = scene;
     parent_ = parent;
-    x_ = 200;
-    y_ = 500;
+    vy_ = 2;
+    x_ = (rand() % 420 + 2);
+    y_ = 4;
     setPos(x_, y_);
 }
 
 /** Destructor */
-Player::~Player()
+EnemyCloseRange::~EnemyCloseRange()
 {
 
 }
@@ -31,17 +33,18 @@ Player::~Player()
 /** Implementation of mousePressEvent to move the tile.
 * @param e Standard mouse click pointer implementation
 */
-void Player::mousePressEvent(QGraphicsSceneMouseEvent *e)
+void EnemyCloseRange::mousePressEvent(QGraphicsSceneMouseEvent *e)
 {
     //parent_->moveTile(this);
 }
 
-/** Moves the Player by updating it's position and calling rectangle's moveTo function.
+/** Moves the EnemyCloseRange by updating it's position and calling rectangle's moveTo function.
 * @param x The x distance to move
 * @param y The y distance to move
 */
-void Player::move()
+void EnemyCloseRange::move()
 {
+    /*
     if (parent_->pressedD){
         if ((x_+pixmap().width()+4) < parent_->xSize_)
             x_ += 2;
@@ -57,8 +60,11 @@ void Player::move()
     if (parent_->pressedS){
         if ((y_ + pixmap().height()+4) < parent_->ySize_ )
             y_ += 2;
-    }
-
+    }*/
+    y_ += vy_;
+    if (y_ > parent_->ySize_ - pixmap().height() - 4)
+        offscreen = true;
+    
     setPos(x_, y_);
 
 

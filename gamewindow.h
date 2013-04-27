@@ -20,9 +20,10 @@
 #include <QApplication>
 #include <QPixmap>
 #include <ostream>
-#include <vector>
+#include <QVector>
 #include "mainwindow.h"
 #include "player.h"
+#include "enemycloserange.h"
 
 /**
   This class will be the window in which the game is run.  It will be filled with GUITiles which the user will ineract with.
@@ -56,9 +57,12 @@ public:
 
 private:
 	int timerCount;
+	int timerMax;
 	//int tileSize;
+	int speed;
 	int timerX;
 	int timerY;
+	QVector<Thing*> things_;
 	MainWindow * mainWindow_;
 	QPixmap * backgroundImage;
 	QPixmap * playerImage;

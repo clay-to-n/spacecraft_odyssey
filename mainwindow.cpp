@@ -127,6 +127,7 @@ void MainWindow::startGame()
     if (started == true && !gameView->timer->isActive())
     {
         gameView->error->setText("Move using WASD keys.  Shoot with Spacebar.");
+        setFocus();
         gameView->timer->start();
         return;
     }      
