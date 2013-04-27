@@ -18,7 +18,7 @@ MainWindow::MainWindow()
 
     //For Start / Stop buttons, use GHBoxLayout
     QPushButton *startButton = new QPushButton("Start / Pause");
-    QPushButton *quitButton = new QPushButton("Quit");
+    QPushButton *quitButton = new QPushButton("Quit Game");
     QVBoxLayout *buttonLayout = new QVBoxLayout;
     buttonLayout->addWidget(startButton);
     buttonLayout->addWidget(quitButton);
@@ -110,8 +110,9 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e )
  */
 void MainWindow::startGame()
 {
-    if (started == false)
+    if (started == false && normalMode->isChecked() && playerName->text() != NULL)
     {
+        name = playerName->text();
         gameView->startGame();
         setFocus();
         started = true;

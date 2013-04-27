@@ -19,6 +19,7 @@
 #include <QRadioButton>
 #include <QKeyEvent>
 #include <ostream>
+#include <string>
 #include "gamewindow.h"
 
 
@@ -42,6 +43,7 @@ public:
     
 private:
     bool started;
+    QString name;
     QGraphicsScene *scene;
     QVBoxLayout *gameLayout;
     QVBoxLayout *consoleLayout;
