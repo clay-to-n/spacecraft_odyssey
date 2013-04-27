@@ -20,7 +20,7 @@ EnemyCloseRange::EnemyCloseRange(QPixmap & pixmap, GameWindow * parent, QGraphic
     parent_ = parent;
     vy_ = 2;
     x_ = (rand() % 420 + 2);
-    y_ = 4;
+    y_ = -50;
     setPos(x_, y_);
 }
 
@@ -44,13 +44,8 @@ void EnemyCloseRange::mousePressEvent(QGraphicsSceneMouseEvent *e)
 */
 void EnemyCloseRange::move()
 {
-
     y_ += vy_;
     if (y_ > parent_->ySize_ )
         offscreen = true;
-
     setPos(x_, y_);
-
-
-
 }

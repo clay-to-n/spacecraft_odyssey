@@ -31,6 +31,9 @@ Thing::~Thing()
 /** Implementation of mousePressEvent to move the tile.
 * @param e Standard mouse click pointer implementation
 */
+
+
+
 void Thing::move()
 {
 

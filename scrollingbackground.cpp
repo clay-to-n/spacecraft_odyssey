@@ -17,11 +17,10 @@ ScrollingBackground::ScrollingBackground(QPixmap & pixmap, GameWindow * parent, 
     offscreen = false;
     scene_ = scene;
     parent_ = parent;
-    vy_ = 1;
+    vy_ = 1; 
     vx_ = 0;
     x_ = 0;
     y_ = -4360;
-    //y_ = -(4460-580);
     setPos(x_, y_);
 }
 
@@ -35,20 +34,18 @@ ScrollingBackground::~ScrollingBackground()
 * @param e Standard mouse click pointer implementation
 */
 
-
+void ScrollingBackground::setIntPos(int x, int y)
+{
+    x_ = x;
+    y_ = y;
+    setPos(x_, y_);
+}
 /** Moves the ScrollingBackground by updating it's position and calling rectangle's moveTo function.
 * @param x The x distance to move
 * @param y The y distance to move
 */
 void ScrollingBackground::move()
 {
-
     y_ += vy_;
-    if (y_ == 0)
-        offscreen = true;
-
     setPos(x_, y_);
-
-
-
 }

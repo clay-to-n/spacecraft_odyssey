@@ -64,9 +64,11 @@ private:
 	int timerX;
 	int timerY;
 	QVector<Thing*> things_;
-	ScrollingBackground * bg_;
+	ScrollingBackground * bg_;	
+	ScrollingBackground * bg2_;
 	MainWindow * mainWindow_;
 	QPixmap * backgroundImage;
+	QPixmap * backgroundImage2;
 	QPixmap * playerImage;
 	QPixmap * longRange1Image;
 	QPixmap * closeRange1Image;

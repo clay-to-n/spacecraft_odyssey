@@ -29,6 +29,7 @@ class ScrollingBackground : public Thing
   public:
     ScrollingBackground(QPixmap &pixmap, GameWindow *parent, QGraphicsScene *scene);
     ~ScrollingBackground();
+    void setIntPos(int x, int y);
 
   private:
     QGraphicsScene *scene_;

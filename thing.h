@@ -43,6 +43,7 @@ class Thing : public QGraphicsPixmapItem
     double vy_;
     int x_;
     int y_;
+    
 
 };
 

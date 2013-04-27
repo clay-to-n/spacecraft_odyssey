@@ -16,6 +16,7 @@ GameWindow::GameWindow()  {
 	view->show();
 		
 	backgroundImage = new QPixmap ("sprites/starcraftbackground.jpg");
+	backgroundImage2 = new QPixmap ("sprites/starcraftbackground.jpg");
     playerImage = new QPixmap ("sprites/toss_arbiter.png");
     longRange1Image = new QPixmap ("sprites/toss_scout.gif");
     closeRange1Image = new QPixmap ("sprites/toss_corsair.gif");
@@ -23,14 +24,19 @@ GameWindow::GameWindow()  {
 
 
     bg_ = new ScrollingBackground(*backgroundImage, this, scene);
+    bg2_ = new ScrollingBackground(*backgroundImage2, this, scene);
 
 	view->setSceneRect(0.0, 0.0, 480, 580);	
 
 
     scene->addItem(bg_);
+    scene->addItem(bg2_);
+
+    bg2_->setIntPos(0, (-(4360+4460+505)));
+
 
     timer = new QTimer();
-    speed = 8;
+    speed = 8; 
     timer->setInterval(speed);
     connect(timer, SIGNAL(timeout()), this, SLOT(handleTimer()));
 	
@@ -163,9 +169,23 @@ void GameWindow::moveObject()
 */
 void GameWindow::handleTimer() 
 {
+	//To move the Background
 	if (timerCount % 6 == 0)
+	{
 		bg_->move();
+		bg2_->move();		
+		if (bg_->y() == -4360 )
+		{
+				bg2_->setIntPos(0, -(4360+4460+505));
+		}
 
+		if (bg2_->y() == -4360 )
+		{
+				bg_->setIntPos(0, -(4360+4460+540));
+		}
+	}
+	
+	//To move the things
     for (int i = 0; i < things_.size(); i++)
     {
     	things_.at(i)->move();
@@ -180,6 +200,7 @@ void GameWindow::handleTimer()
 
 	timerCount++;
 
+	//To spawn new things
 	if (timerCount % 100 == 2)
 	{
 		EnemyCloseRange *enemyC = new EnemyCloseRange(*closeRange1Image, this, scene);
