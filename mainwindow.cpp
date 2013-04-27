@@ -3,6 +3,7 @@
 
 MainWindow::MainWindow()  
 {
+    started = false;
     scene = new QGraphicsScene();
     gameLayout = new QVBoxLayout();
     consoleLayout = new QVBoxLayout();
@@ -109,15 +110,32 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e )
  */
 void MainWindow::startGame()
 {
-    gameView->startGame();
-    setFocus();
+    if (started == false)
+    {
+        gameView->startGame();
+        setFocus();
+        started = true;
+        return;
+    }    
+    if (started == true && gameView->timer->isActive())
+    {
+        gameView->error->setText("Game is paused.");
+        gameView->timer->stop();
+        return;
+    }  
+    if (started == true && !gameView->timer->isActive())
+    {
+        gameView->error->setText("Move using WASD keys.  Shoot with Spacebar.");
+        gameView->timer->start();
+        return;
+    }      
+
 }
 
 /** Starts the game by creating a board based on user input.  Sends the board to the gameView class to implement gameplay.
  */
 void MainWindow::pauseGame()
 {
-    gameView->error->setText("Game is paused.");
 }
 
 /** Ends the game by calling qApp's quit function.  Closes the window.

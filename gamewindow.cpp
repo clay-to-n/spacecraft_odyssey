@@ -25,9 +25,9 @@ GameWindow::GameWindow()  {
 
     scene->addItem(background);
 
-    timer_ = new QTimer();
-    timer_->setInterval(4);
-    connect(timer_, SIGNAL(timeout()), this, SLOT(handleTimer()));
+    timer = new QTimer();
+    timer->setInterval(4);
+    connect(timer, SIGNAL(timeout()), this, SLOT(handleTimer()));
 	
 
 
@@ -37,11 +37,11 @@ GameWindow::GameWindow()  {
 /** Destructor */
 GameWindow::~GameWindow() 
 {
-	if (timer_->isActive())
-		timer_->stop();
+	if (timer->isActive())
+		timer->stop();
 	delete view;
 	delete scene;
-	delete timer_;
+	delete timer;
 }
 
 void GameWindow::setMainWindow(MainWindow *mainWindow)
@@ -53,7 +53,7 @@ void GameWindow::startGame()
 {
 	player = new Player(*playerImage, this, scene);
 	scene->addItem(player);
-	timer_->start();
+	timer->start();
 	error->setText("Move using WASD keys.  Shoot with Spacebar.");
 
 

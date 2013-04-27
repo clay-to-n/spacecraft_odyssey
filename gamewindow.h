@@ -51,6 +51,8 @@ public:
 	/** Pointer to the board class that is being used. */
 	static const int xSize_ = 482;
 	static const int ySize_ = 582;
+	QTimer* timer;
+
 
 private:
 	int timerCount;
@@ -68,7 +70,6 @@ private:
 	
 	/** Vector of QBrushes to use to color the tiles. */
 	/** Pointer to a QTimer to be used for animation. */
-	QTimer* timer_;
 	
 public slots:
 	void handleTimer();

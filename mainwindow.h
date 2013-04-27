@@ -41,7 +41,7 @@ public:
     ~MainWindow();
     
 private:
-
+    bool started;
     QGraphicsScene *scene;
     QVBoxLayout *gameLayout;
     QVBoxLayout *consoleLayout;

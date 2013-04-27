@@ -60,8 +60,7 @@ void Player::move()
     }
 
     setPos(x_, y_);
-    // x_ += x;
-    // y_ += y;
+
 
 
 }
