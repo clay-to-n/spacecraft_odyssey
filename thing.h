@@ -15,6 +15,7 @@
 #include <QGraphicsSimpleTextItem>
 #include <QGraphicsSceneMouseEvent>
 #include <sstream>
+#include <time.h>
 
 
 
@@ -32,6 +33,8 @@ class Thing : public QGraphicsPixmapItem
     Thing(QPixmap &pixmap, int x, int y);
     ~Thing();
     virtual void move() = 0;
+    bool offscreen;
+
 
   protected:
     QGraphicsScene *scene_;
