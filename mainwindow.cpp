@@ -61,6 +61,50 @@ MainWindow::~MainWindow()
 
 }
 
+void MainWindow::keyPressEvent(QKeyEvent *e )
+{
+    switch (e->key())
+    {
+        case Qt::Key_W:
+            gameView->pressedW = true;
+            break;
+
+        case Qt::Key_A:
+            gameView->pressedA = true;
+            break;
+
+        case Qt::Key_S:
+            gameView->pressedS = true;
+            break;
+
+        case Qt::Key_D:
+            gameView->pressedD = true;
+            break;
+    }
+}
+
+void MainWindow::keyReleaseEvent(QKeyEvent *e )
+{
+    switch (e->key())
+    {
+        case Qt::Key_W:
+            gameView->pressedW = false;
+            break;
+
+        case Qt::Key_A:
+            gameView->pressedA = false;
+            break;
+
+        case Qt::Key_S:
+            gameView->pressedS = false;
+            break;
+
+        case Qt::Key_D:
+            gameView->pressedD = false;
+            break;
+    }
+}
+
 /** Starts the game by creating a board based on user input.  Sends the board to the gameView class to implement gameplay.
  */
 void MainWindow::startGame()

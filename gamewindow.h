@@ -38,6 +38,10 @@ public:
     ~GameWindow();
     QGraphicsView *view;
 	QGraphicsScene *scene;
+	bool pressedW;
+	bool pressedA;
+	bool pressedS;
+	bool pressedD;
 	//void setBoard(Board *b);
 	void setMainWindow(MainWindow *mainWindow);
 	void startGame();

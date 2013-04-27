@@ -17,6 +17,7 @@
 #include <QVBoxLayout>
 #include <QHBoxLayout>
 #include <QRadioButton>
+#include <QKeyEvent>
 #include <ostream>
 #include "gamewindow.h"
 
@@ -49,6 +50,9 @@ private:
     QRadioButton *normalMode;
     QRadioButton *invincibleMode;
     QListWidget *messageDisplay;
+    void keyPressEvent(QKeyEvent *e );
+    void keyReleaseEvent(QKeyEvent *e );
+ 
 
 
 public slots:

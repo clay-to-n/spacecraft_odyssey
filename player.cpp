@@ -42,15 +42,22 @@ void Player::mousePressEvent(QGraphicsSceneMouseEvent *e)
 */
 void Player::move()
 {
-    
-    if ((x_+pixmap().width()+2) < parent_->xSize_ && parent_->hasFocus())
-        x_ += 1;
-    //if ((y_+pixmap().height()+2) < parent_->ySize_)
-      //  y_ += 1;
-    //if (x_ > 2)
-      //  x_ -= 1;
-    //if (y_ > 2)
-      //  y_ -= 1;
+    if (parent_->pressedD){
+        if ((x_+pixmap().width()+2) < parent_->xSize_)
+            x_ += 1;
+    }    
+    if (parent_->pressedW){
+        if (y_ > 2)
+            y_ -= 1;
+    }
+    if (parent_->pressedA){
+        if (x_ > 2)
+            x_ -= 1;
+    }
+    if (parent_->pressedS){
+        if ((y_ + pixmap().height()+2) < parent_->ySize_ )
+            y_ += 1;
+    }
 
     setPos(x_, y_);
     // x_ += x;

@@ -6,6 +6,10 @@ GameWindow::GameWindow()  {
 
 	//Create new board, then iterate through and create a GUITile for each board tile in the correct location
 
+	pressedW = false;
+	pressedA = false;
+ 	pressedS = false;
+	pressedD = false;
 
 	scene = new QGraphicsScene();
 	view = new QGraphicsView(scene);
