@@ -44,27 +44,11 @@ void EnemyCloseRange::mousePressEvent(QGraphicsSceneMouseEvent *e)
 */
 void EnemyCloseRange::move()
 {
-    /*
-    if (parent_->pressedD){
-        if ((x_+pixmap().width()+4) < parent_->xSize_)
-            x_ += 2;
-    }    
-    if (parent_->pressedW){
-        if (y_ > 4)
-            y_ -= 2;
-    }
-    if (parent_->pressedA){
-        if (x_ > 4)
-            x_ -= 2;
-    }
-    if (parent_->pressedS){
-        if ((y_ + pixmap().height()+4) < parent_->ySize_ )
-            y_ += 2;
-    }*/
+
     y_ += vy_;
-    if (y_ > parent_->ySize_ - pixmap().height() - 4)
+    if (y_ > parent_->ySize_ )
         offscreen = true;
-    
+
     setPos(x_, y_);
 
 

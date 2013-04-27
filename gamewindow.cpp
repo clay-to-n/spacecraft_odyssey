@@ -21,9 +21,13 @@ GameWindow::GameWindow()  {
     closeRange1Image = new QPixmap ("sprites/toss_corsair.gif");
     boss1Image = new QPixmap ("sprites/toss_carrier.gif");
 
-    QGraphicsPixmapItem* background = new QGraphicsPixmapItem(*backgroundImage);
 
-    scene->addItem(background);
+    bg_ = new ScrollingBackground(*backgroundImage, this, scene);
+
+	view->setSceneRect(0.0, 0.0, 480, 580);	
+
+
+    scene->addItem(bg_);
 
     timer = new QTimer();
     speed = 8;
@@ -57,7 +61,7 @@ void GameWindow::startGame()
 	things_.push_back(player);
 	scene->addItem(player);
 	timerCount = 0;
-	timerMax = 6000;
+	timerMax = 200;
 	timer->start();
 	error->setText("Move using WASD keys.  Shoot with Spacebar.");
 
@@ -159,33 +163,38 @@ void GameWindow::moveObject()
 */
 void GameWindow::handleTimer() 
 {
-	    for (int i = 0; i < things_.size(); i++)
-	    {
-	    	things_.at(i)->move();
-	    	if (things_.at(i)->offscreen == true)
-	    	{
-	    		scene->removeItem(things_.at(i));
-	    		delete things_.at(i);
-	    		things_.remove(i);
-	    		
-	    	}
-	    }
+	if (timerCount % 6 == 0)
+		bg_->move();
 
-    	timerCount++;
-
-    	if (timerCount % 100 == 2)
+    for (int i = 0; i < things_.size(); i++)
+    {
+    	things_.at(i)->move();
+    	if (things_.at(i)->offscreen == true)
     	{
-    		EnemyCloseRange *enemyC = new EnemyCloseRange(*closeRange1Image, this, scene);
-    		things_.push_back(enemyC);
-			scene->addItem(enemyC);
-
-		}	
-    	//Have these things happen when a boss is defeated
-    	if (timerCount == timerMax)
-    	{
-    		timerCount = 0;
-    		if (speed > 1)
-				speed --;
-    		timer->setInterval(speed);
+    		scene->removeItem(things_.at(i));
+    		delete things_.at(i);
+    		things_.remove(i);
+    		
     	}
+    }
+
+	timerCount++;
+
+	if (timerCount % 100 == 2)
+	{
+		EnemyCloseRange *enemyC = new EnemyCloseRange(*closeRange1Image, this, scene);
+		things_.push_back(enemyC);
+		scene->addItem(enemyC);
+
+	}	
+	//Have these things happen when a boss is defeated
+	if (timerCount == timerMax)
+	{
+		timerCount = 0;
+		if (speed > 2) {
+			speed --;
+			timerMax = timerMax*(speed+1/(speed));
+			timer->setInterval(speed);
+		}
+	}
 }

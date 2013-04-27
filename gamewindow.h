@@ -24,6 +24,7 @@
 #include "mainwindow.h"
 #include "player.h"
 #include "enemycloserange.h"
+#include "scrollingbackground.h"
 
 /**
   This class will be the window in which the game is run.  It will be filled with GUITiles which the user will ineract with.
@@ -63,6 +64,7 @@ private:
 	int timerX;
 	int timerY;
 	QVector<Thing*> things_;
+	ScrollingBackground * bg_;
 	MainWindow * mainWindow_;
 	QPixmap * backgroundImage;
 	QPixmap * playerImage;
