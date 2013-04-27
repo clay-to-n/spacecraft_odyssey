@@ -26,6 +26,7 @@ GameWindow::GameWindow()  {
     connect(timer_, SIGNAL(timeout()), this, SLOT(handleTimer()));
 	
 
+
 }
 
 /** Destructor */
