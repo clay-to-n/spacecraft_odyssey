@@ -24,6 +24,7 @@
 #include "mainwindow.h"
 #include "player.h"
 #include "enemycloserange.h"
+#include "enemylongrange.h"
 #include "scrollingbackground.h"
 
 /**

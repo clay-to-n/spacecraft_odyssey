@@ -14,11 +14,8 @@
 
 Thing::Thing(QPixmap & pixmap, int x, int y) : QGraphicsPixmapItem(pixmap)
 { 
-    //scene_ = scene;
-    //parent_ = parent;
     x_ = x;
     y_ = y;
-
     setPos(x_, y_);
 }
 

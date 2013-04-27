@@ -36,7 +36,7 @@ GameWindow::GameWindow()  {
 
 
     timer = new QTimer();
-    speed = 8; 
+    speed = 9; 
     timer->setInterval(speed);
     connect(timer, SIGNAL(timeout()), this, SLOT(handleTimer()));
 	
@@ -67,7 +67,7 @@ void GameWindow::startGame()
 	things_.push_back(player);
 	scene->addItem(player);
 	timerCount = 0;
-	timerMax = 200;
+	timerMax = 400;
 	timer->start();
 	error->setText("Move using WASD keys.  Shoot with Spacebar.");
 
@@ -170,7 +170,7 @@ void GameWindow::moveObject()
 void GameWindow::handleTimer() 
 {
 	//To move the Background
-	if (timerCount % 6 == 0)
+	if (timerCount % 12 == 0)
 	{
 		bg_->move();
 		bg2_->move();		
@@ -201,11 +201,19 @@ void GameWindow::handleTimer()
 	timerCount++;
 
 	//To spawn new things
-	if (timerCount % 100 == 2)
+	if (timerCount % 200 == 2)
 	{
 		EnemyCloseRange *enemyC = new EnemyCloseRange(*closeRange1Image, this, scene);
 		things_.push_back(enemyC);
 		scene->addItem(enemyC);
+
+	}	
+
+	if (timerCount % 600 == 100)
+	{
+		EnemyLongRange *enemyL = new EnemyLongRange(*longRange1Image, this, scene);
+		things_.push_back(enemyL);
+		scene->addItem(enemyL);
 
 	}	
 	//Have these things happen when a boss is defeated
@@ -213,8 +221,8 @@ void GameWindow::handleTimer()
 	{
 		timerCount = 0;
 		if (speed > 2) {
-			speed --;
-			timerMax = timerMax*(speed+1/(speed));
+			speed = speed - 0.5;
+			timerMax = timerMax*(speed+0.5/(speed));
 			timer->setInterval(speed);
 		}
 	}
