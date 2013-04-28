@@ -199,7 +199,22 @@ void GameWindow::handleTimer()
 	    					scene->removeItem(health_.back());
     						delete health_.back();
     						health_.remove(health_.size() - 1);
-    					
+	    				}
+
+	    				//If a boss is defeated, increase difficulty
+	    				if (dynamic_cast<EnemyBoss*>(things_.at(j)) != NULL && things_.at(j)->health_ == 0)
+	    				{
+	    					timerCount = 0;
+							if (speed > 5) {
+								speed = speed - 1;
+								timerMax = timerMax*(speed+1/(speed));
+								timer->setInterval(speed);
+							}
+							else if (speed > 2) {
+								speed = speed - 0.5;
+								timerMax = timerMax*(speed+0.5/(speed));
+								timer->setInterval(speed);
+							}
 
 	    				}
 					}
@@ -277,7 +292,7 @@ void GameWindow::handleTimer()
 	}		
 
 	//To shoot player projectiles
-	if (pressedSpace && timerCount % 20 == 0)
+	if (pressedSpace && timerCount % 30 == 0)
 	{
         PlayerProjectile * playerBullet = new PlayerProjectile(*playerProjectileImage, this, scene);
         things_.push_back(playerBullet);
@@ -285,15 +300,4 @@ void GameWindow::handleTimer()
         scene->addItem(playerBullet);
     }
 
-
-	//Have these things happen when a boss is defeated
-	if (timerCount == timerMax)
-	{
-		timerCount = 0;
-		if (speed > 2) {
-			speed = speed - 0.5;
-			timerMax = timerMax*(speed+0.5/(speed));
-			timer->setInterval(speed);
-		}
-	}
 }

@@ -29,7 +29,7 @@ EnemyBoss::EnemyBoss(QPixmap & pixmap, GameWindow * parent, QGraphicsScene *scen
     setPos(x_, y_);
     setZValue(5);
     yBarrier = (100);
-    health_ = 5;
+    health_ = 8;
 }
 
 /** Destructor */
