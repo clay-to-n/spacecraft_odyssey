@@ -1,5 +1,5 @@
-#ifndef THING_H
-#define THING_H
+#ifndef PLAYERPROJECTILE_H
+#define PLAYERPROJECTILE_H
 
 #include <QtGui/QMainWindow>
 #include <QGraphicsScene>
@@ -14,8 +14,7 @@
 #include <QListView>
 #include <QGraphicsSimpleTextItem>
 #include <QGraphicsSceneMouseEvent>
-#include <sstream>
-#include <time.h>
+#include "thing.h"
 
 
 
@@ -26,26 +25,23 @@ class GameWindow;
   separately, then to extract coordinates from the QRectF that is contained within
   the QGraphicsRectItem
   */
-class Thing : public QGraphicsPixmapItem 
+class PlayerProjectile : public Thing
 {
 
   public:
-    Thing(QPixmap &pixmap, int x, int y);
-    ~Thing();
-    virtual void move() = 0;
-    bool offscreen;
+    PlayerProjectile(QPixmap &pixmap, GameWindow *parent, QGraphicsScene *scene);
+    ~PlayerProjectile();
+    void mousePressEvent(QGraphicsSceneMouseEvent *e);
+    void setIntPos(int x, int y);
 
-
-  protected:
+  private:
     QGraphicsScene *scene_;
     GameWindow *parent_;
-    double vx_;
-    double vy_;
-    int x_;
-    int y_;
-    int health_;
-    
 
+
+
+  public slots:
+    void move();
 };
 
-#endif // THING_H
+#endif // PLAYERPROJECTILE_H

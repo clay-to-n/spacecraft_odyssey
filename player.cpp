@@ -14,12 +14,14 @@
 
 Player::Player(QPixmap & pixmap, GameWindow * parent, QGraphicsScene *scene) : Thing(pixmap, 0, 0)
 { 
-
+    offscreen = false;
     scene_ = scene;
     parent_ = parent;
     x_ = 200;
     y_ = 500;
+    setZValue(6);
     setPos(x_, y_);
+    health_ = 5;
 }
 
 /** Destructor */

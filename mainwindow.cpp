@@ -81,6 +81,10 @@ void MainWindow::keyPressEvent(QKeyEvent *e )
         case Qt::Key_D:
             gameView->pressedD = true;
             break;
+
+        case Qt::Key_Space:
+            gameView->pressedSpace = true;
+            break;
     }
 }
 
@@ -102,6 +106,10 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e )
 
         case Qt::Key_D:
             gameView->pressedD = false;
+            break;
+
+        case Qt::Key_Space:
+            gameView->pressedSpace = false;
             break;
     }
 }

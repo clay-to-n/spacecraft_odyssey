@@ -23,7 +23,9 @@ EnemyLongRange::EnemyLongRange(QPixmap & pixmap, GameWindow * parent, QGraphicsS
     vx_ = (-2 + (rand() % 5));
     y_ = -50;
     setPos(x_, y_);
+    setZValue(5);
     yBarrier = ((rand() % 100) + 200);
+    health_ = 2;
 }
 
 /** Destructor */

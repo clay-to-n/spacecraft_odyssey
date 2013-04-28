@@ -10,12 +10,14 @@ GameWindow::GameWindow()  {
 	pressedA = false;
  	pressedS = false;
 	pressedD = false;
+	pressedSpace = false;
 
 	scene = new QGraphicsScene();
 	view = new QGraphicsView(scene);
 	view->show();
 		
 	healthImage = new QPixmap ("sprites/health_bar.png");	
+	playerProjectileImage = new QPixmap ("sprites/player_projectile.png");
 	backgroundImage = new QPixmap ("sprites/starcraftbackground.jpg");
 	backgroundImage2 = new QPixmap ("sprites/starcraftbackground.jpg");
     playerImage = new QPixmap ("sprites/toss_arbiter.png");
@@ -224,6 +226,16 @@ void GameWindow::handleTimer()
 		scene->addItem(enemyL);
 
 	}	
+
+	//To shoot projectiles
+	if (pressedSpace && timerCount % 10 == 0)
+	{
+        PlayerProjectile * playerBullet = new PlayerProjectile(*playerProjectileImage, this, scene);
+        things_.push_back(playerBullet);
+        playerBullet->setIntPos(((things_.at(0)->x())+.45*(things_.at(0)->pixmap().width())), ((things_.at(0)->y())+10));
+        scene->addItem(playerBullet);
+    }
+
 	//Have these things happen when a boss is defeated
 	if (timerCount == timerMax)
 	{

@@ -19,9 +19,10 @@ Health::Health(QPixmap & pixmap, GameWindow * parent, QGraphicsScene *scene) : T
     parent_ = parent;
     vy_ = 0; 
     vx_ = 0;
-    x_ = 290;
+    x_ = 20;
     y_ = 530;
     setPos(x_, y_);
+    setZValue(10);
 }
 
 /** Destructor */
@@ -36,7 +37,7 @@ Health::~Health()
 
 void Health::setNum(int num)
 {
-    x_ += 27*num;
+    x_ += 29*num;
     setPos(x_, y_);
 }
 /** Moves the Health by updating it's position and calling rectangle's moveTo function.

@@ -27,6 +27,7 @@
 #include "enemycloserange.h"
 #include "enemylongrange.h"
 #include "scrollingbackground.h"
+#include "playerprojectile.h"
 
 /**
   This class will be the window in which the game is run.  It will be filled with GUITiles which the user will ineract with.
@@ -46,6 +47,7 @@ public:
 	bool pressedA;
 	bool pressedS;
 	bool pressedD;
+	bool pressedSpace;
 	//void setBoard(Board *b);
 	void setMainWindow(MainWindow *mainWindow);
 	void startGame();
@@ -71,6 +73,7 @@ private:
 	ScrollingBackground * bg2_;
 	MainWindow * mainWindow_;
 	QPixmap * healthImage;
+	QPixmap * playerProjectileImage;
 	QPixmap * backgroundImage;
 	QPixmap * backgroundImage2;
 	QPixmap * playerImage;
