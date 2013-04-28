@@ -18,6 +18,7 @@ GameWindow::GameWindow()  {
 		
 	healthImage = new QPixmap ("sprites/health_bar.png");	
 	playerProjectileImage = new QPixmap ("sprites/player_projectile.png");
+	enemyProjectileImage = new QPixmap ("sprites/enemy_projectile.png");
 	backgroundImage = new QPixmap ("sprites/starcraftbackground.jpg");
 	backgroundImage2 = new QPixmap ("sprites/starcraftbackground.jpg");
     playerImage = new QPixmap ("sprites/toss_arbiter.png");
@@ -195,16 +196,32 @@ void GameWindow::handleTimer()
 		}
 	}
 	
-	//To move the things
+	//For every thing
     for (int i = 0; i < things_.size(); i++)
     {
+    	//To get enemies to shoot
+    	if (things_.at(i)->shoots)
+    	{
+    		if (things_.at(i)->cooldown == 400)
+    			things_.at(i)->cooldown = 0;
+    		if (things_.at(i)->cooldown == 200)
+    		{
+	    	EnemyProjectile * enemyBullet = new EnemyProjectile(*enemyProjectileImage, this, scene);
+	        things_.push_back(enemyBullet);
+	        enemyBullet->setIntPos(((things_.at(i)->x())+.45*(things_.at(i)->pixmap().width())), ((things_.at(i)->y())+10));
+	        scene->addItem(enemyBullet);
+	        things_.at(i)->cooldown = 0;
+	    	}
+	    	things_.at(i)->cooldown++;
+    	}
+
+    	//To move the things
     	things_.at(i)->move();
     	if (things_.at(i)->offscreen == true)
     	{
     		scene->removeItem(things_.at(i));
     		delete things_.at(i);
     		things_.remove(i);
-    		
     	}
     }
 
@@ -227,14 +244,15 @@ void GameWindow::handleTimer()
 
 	}	
 
-	//To shoot projectiles
-	if (pressedSpace && timerCount % 10 == 0)
+	//To shoot player projectiles
+	if (pressedSpace && timerCount % 20 == 0)
 	{
         PlayerProjectile * playerBullet = new PlayerProjectile(*playerProjectileImage, this, scene);
         things_.push_back(playerBullet);
         playerBullet->setIntPos(((things_.at(0)->x())+.45*(things_.at(0)->pixmap().width())), ((things_.at(0)->y())+10));
         scene->addItem(playerBullet);
     }
+
 
 	//Have these things happen when a boss is defeated
 	if (timerCount == timerMax)

@@ -14,6 +14,7 @@
 
 ScrollingBackground::ScrollingBackground(QPixmap & pixmap, GameWindow * parent, QGraphicsScene *scene) : Thing(pixmap, 0, 0)
 { 
+    shoots = false;
     offscreen = false;
     scene_ = scene;
     parent_ = parent;

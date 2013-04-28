@@ -14,11 +14,12 @@
 
 EnemyCloseRange::EnemyCloseRange(QPixmap & pixmap, GameWindow * parent, QGraphicsScene *scene) : Thing(pixmap, 0, 0)
 { 
+    shoots = false;
     offscreen = false;
     srand(time(NULL));
     scene_ = scene;
     parent_ = parent;
-    vy_ = 3;
+    vy_ = 2;
     x_ = (rand() % 420 + 2);
     y_ = -50;
     setZValue(5);

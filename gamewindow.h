@@ -28,6 +28,7 @@
 #include "enemylongrange.h"
 #include "scrollingbackground.h"
 #include "playerprojectile.h"
+#include "enemyprojectile.h"
 
 /**
   This class will be the window in which the game is run.  It will be filled with GUITiles which the user will ineract with.
@@ -73,7 +74,8 @@ private:
 	ScrollingBackground * bg2_;
 	MainWindow * mainWindow_;
 	QPixmap * healthImage;
-	QPixmap * playerProjectileImage;
+	QPixmap * playerProjectileImage;	
+	QPixmap * enemyProjectileImage;
 	QPixmap * backgroundImage;
 	QPixmap * backgroundImage2;
 	QPixmap * playerImage;

@@ -34,6 +34,8 @@ class Thing : public QGraphicsPixmapItem
     ~Thing();
     virtual void move() = 0;
     bool offscreen;
+    bool shoots;
+    int cooldown;
 
 
   protected:

@@ -14,10 +14,13 @@
 
 EnemyLongRange::EnemyLongRange(QPixmap & pixmap, GameWindow * parent, QGraphicsScene *scene) : Thing(pixmap, 0, 0)
 { 
+
+    shoots = true;
     offscreen = false;
     srand(time(NULL));
     scene_ = scene;
     parent_ = parent;
+    cooldown = (200 + rand() % 190);
     vy_ = 1;
     x_ = (rand() % 420 + 2);
     vx_ = (-2 + (rand() % 5));
