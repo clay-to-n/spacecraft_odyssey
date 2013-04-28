@@ -15,6 +15,7 @@ GameWindow::GameWindow()  {
 	view = new QGraphicsView(scene);
 	view->show();
 		
+	healthImage = new QPixmap ("sprites/health_bar.png");	
 	backgroundImage = new QPixmap ("sprites/starcraftbackground.jpg");
 	backgroundImage2 = new QPixmap ("sprites/starcraftbackground.jpg");
     playerImage = new QPixmap ("sprites/toss_arbiter.png");
@@ -66,6 +67,13 @@ void GameWindow::startGame()
 	player = new Player(*playerImage, this, scene);
 	things_.push_back(player);
 	scene->addItem(player);
+	for (int i = 0; i < 5; i++)
+	{
+		health = new Health(*healthImage, this, scene);
+		health->setNum(i);
+		health_.push_back(health);
+		scene->addItem(health);
+	}
 	timerCount = 0;
 	timerMax = 400;
 	timer->start();

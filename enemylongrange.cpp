@@ -20,7 +20,7 @@ EnemyLongRange::EnemyLongRange(QPixmap & pixmap, GameWindow * parent, QGraphicsS
     parent_ = parent;
     vy_ = 1;
     x_ = (rand() % 420 + 2);
-    vx_ = (-1 + (rand() % 4));
+    vx_ = (-2 + (rand() % 5));
     y_ = -50;
     setPos(x_, y_);
     yBarrier = ((rand() % 100) + 200);
@@ -50,9 +50,23 @@ void EnemyLongRange::move()
     if (y_ > parent_->ySize_ )
         offscreen = true;
     if (y_ > yBarrier && vy_ > 0)
+    {
         vy_ = -vy_;
+        if (vx_ == 0)
+            vx_ = -1;
+        if (vx_ == -2)
+            vx_ ++;
+        if (vx_ == 2)
+            vx_ --;
+    }
     if ( vy_ < 0 && y_ < -40)
+    {
         vy_ = -vy_;
+        if (vx_ == 1)
+            vx_ ++;
+        if (vx_ == -1)
+            vx_ --;
+    }
     if (x_ < 0 || x_ > (parent_->xSize_ - pixmap().width()))
         vx_ = -vx_;
     //else

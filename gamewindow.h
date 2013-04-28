@@ -23,6 +23,7 @@
 #include <QVector>
 #include "mainwindow.h"
 #include "player.h"
+#include "health.h"
 #include "enemycloserange.h"
 #include "enemylongrange.h"
 #include "scrollingbackground.h"
@@ -65,9 +66,11 @@ private:
 	int timerX;
 	int timerY;
 	QVector<Thing*> things_;
+	QVector<Thing*> health_;
 	ScrollingBackground * bg_;	
 	ScrollingBackground * bg2_;
 	MainWindow * mainWindow_;
+	QPixmap * healthImage;
 	QPixmap * backgroundImage;
 	QPixmap * backgroundImage2;
 	QPixmap * playerImage;
@@ -75,6 +78,7 @@ private:
 	QPixmap * closeRange1Image;
 	QPixmap * boss1Image;
 	Player * player;
+	Health * health;
 	/** Pointer to a GUITile that will be animated. */
 	
 	/** Vector of QBrushes to use to color the tiles. */
