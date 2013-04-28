@@ -11,6 +11,7 @@ GameWindow::GameWindow()  {
  	pressedS = false;
 	pressedD = false;
 	pressedSpace = false;
+	invincibleMode = false;
 
 	scene = new QGraphicsScene();
 	view = new QGraphicsView(scene);
@@ -76,6 +77,7 @@ void GameWindow::setMainWindow(MainWindow *mainWindow)
 
 void GameWindow::startGame()
 {
+	invincibleMode = false;
 	things_.clear();
 	player = new Player(*playerImage, this, scene);
 	things_.push_back(player);
@@ -90,33 +92,30 @@ void GameWindow::startGame()
 	timerCount = 0;
 	timerMax = 400;
 	timer->start();
+
 	error->setText("Move using WASD keys.  Shoot with Spacebar.");
-
-
 }
 
-
-/*void GameWindow::setBoard(Board *b)
+void GameWindow::startInvincibleGame()
 {
-
-	int dim = static_cast<int>(sqrt(b_->getSize()));
-	int width = 449/dim;
-	tileSize = width;
-	int * tilesTemp = b_->getTiles();
-	int var = (255/(b_->getSize()));
-	for (int i = 0; i < b_->getSize(); i++)
-	{	
-		QBrush * tempBrush = new QBrush(QColor(100+(tilesTemp[i]*.25*var),(tilesTemp[i]*var),(255-(tilesTemp[i]*var)/2),(50+10*tilesTemp[i])));
-		GUITile * temp = new GUITile(width, width, (width*(i%dim)), (width*(i/dim)), tilesTemp[i], this);
-		temp->setBrush(*tempBrush);
-		brushes_.push_back(tempBrush);
-		tiles_.push_back(temp);
-		if (tilesTemp[i] != 0)
-		{
-			scene->addItem(tiles_[i]);
-		}
+	invincibleMode = true;
+	things_.clear();
+	player = new Player(*playerImage, this, scene);
+	things_.push_back(player);
+	scene->addItem(player);
+	for (int i = 0; i < 5; i++)
+	{
+		health = new Health(*healthImage, this, scene);
+		health->setNum(i);
+		health_.push_back(health);
+		scene->addItem(health);
 	}
-}*/
+	timerCount = 0;
+	timerMax = 400;
+	timer->start();
+		error->setText("Move using WASD keys.  Shoot with Spacebar.  You're invincible!");
+
+}
 
 /** This slot moves the tile by one pixel per tick of the timer by calling the GUITile's move function.
 */
@@ -190,35 +189,33 @@ void GameWindow::handleTimer()
 				if (dynamic_cast<Player*>(things_.at(i)) != NULL || dynamic_cast<PlayerProjectile*>(things_.at(i)) != NULL) 
 				{
 					if (dynamic_cast<EnemyProjectile*>(things_.at(j)) != NULL || dynamic_cast<EnemyCloseRange*>(things_.at(j)) != NULL || dynamic_cast<EnemyLongRange*>(things_.at(j)) != NULL || dynamic_cast<EnemyBoss*>(things_.at(j)) != NULL) {
-						things_.at(j)->health_ --;
-	    				things_.at(i)->health_ --;
-
+						-- things_.at(j)->health_ ;
+	    				-- things_.at(i)->health_ ;
+	    				
 	    				//If it hit the player, remove it and decrease health
 	    				if (dynamic_cast<Player*>(things_.at(i)) != NULL)
 	    				{
-	    					scene->removeItem(things_.at(j));
-    						delete things_.at(j);
-    						things_.remove(j);
+	    					things_.at(j)->health_ = 0;
 	    					scene->removeItem(health_.back());
     						delete health_.back();
     						health_.remove(health_.size() - 1);
+    					
 
 	    				}
 					}
+				
 					if (dynamic_cast<Player*>(things_.at(i)) != NULL && dynamic_cast<HealthItem*>(things_.at(j)) != NULL)
 					{
 						if (health_.size() < 5) {
-							scene->removeItem(things_.at(j));
-							delete things_.at(j);
-							things_.remove(j);
-							things_.at(i)->health_ ++;
+							things_.at(j)->health_ = 0;
+							++ things_.at(i)->health_ ;
 							health = new Health(*healthImage, this, scene);
 							health->setNum(health_.size());
 							health_.push_back(health);
 							scene->addItem(health);
 						}
-
 					}
+					
 
 				}
 			}
@@ -226,6 +223,23 @@ void GameWindow::handleTimer()
 
     	//To move the things
     	things_.at(i)->move();
+
+    	if (timerCount %500 == 5){
+    		//std::cout << "Invincible is:" << invincibleMode;
+    		std::cout << "health is: " << health_.size();
+    	}
+
+		if (invincibleMode && player->health_ < 1)
+		{
+			player->health_ = 5;
+			for (int i = 0; i < 5; i++)
+			{
+				health = new Health(*healthImage, this, scene);
+				health->setNum(i);
+				health_.push_back(health);
+				scene->addItem(health);
+			}
+		}
 
     	//To remove dead or off-screen things
     	if (things_.at(i)->offscreen == true || things_.at(i)->health_ < 1)

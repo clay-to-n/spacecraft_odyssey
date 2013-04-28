@@ -22,6 +22,7 @@
 #include <ostream>
 #include <QVector>
 #include <cmath>
+#include <iostream>
 #include "mainwindow.h"
 #include "player.h"
 #include "health.h"
@@ -52,9 +53,11 @@ public:
 	bool pressedS;
 	bool pressedD;
 	bool pressedSpace;
+	bool invincibleMode;
 	//void setBoard(Board *b);
 	void setMainWindow(MainWindow *mainWindow);
 	void startGame();
+	void startInvincibleGame();
 	/** Vector of GUITiles which will be displayed. */
 	QLineEdit *error;
 	/** Pointer to the board class that is being used. */

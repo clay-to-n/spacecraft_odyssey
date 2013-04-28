@@ -121,7 +121,17 @@ void MainWindow::startGame()
     if (started == false && normalMode->isChecked() && playerName->text() != NULL)
     {
         name = playerName->text();
+       /// gameView->invincibleMode = false;
         gameView->startGame();
+        setFocus();
+        started = true;
+        return;
+    }   
+    if (started == false && invincibleMode->isChecked() && playerName->text() != NULL)
+    {
+        name = playerName->text();
+        //gameView->invincibleMode = true;
+        gameView->startInvincibleGame();
         setFocus();
         started = true;
         return;
