@@ -25,6 +25,7 @@
 #include "mainwindow.h"
 #include "player.h"
 #include "health.h"
+#include "healthitem.h"
 #include "enemycloserange.h"
 #include "enemylongrange.h"
 #include "enemyboss.h"
@@ -77,6 +78,7 @@ private:
 	ScrollingBackground * clouds2_;
 	MainWindow * mainWindow_;
 	QPixmap * healthImage;
+	QPixmap * healthItemImage;
 	QPixmap * playerProjectileImage;	
 	QPixmap * enemyProjectileImage;
 	QPixmap * bossProjectileImage;

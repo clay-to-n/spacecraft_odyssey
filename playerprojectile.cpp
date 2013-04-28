@@ -19,7 +19,7 @@ PlayerProjectile::PlayerProjectile(QPixmap & pixmap, GameWindow * parent, QGraph
     scene_ = scene;
     parent_ = parent;
     vy_ = -6;
-    health_ = 3;
+    health_ = 1;
     setZValue(4);
     setPos(0,0);
 }

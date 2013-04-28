@@ -16,7 +16,8 @@ GameWindow::GameWindow()  {
 	view = new QGraphicsView(scene);
 	view->show();
 		
-	healthImage = new QPixmap ("sprites/health_bar.png");	
+	healthImage = new QPixmap ("sprites/health_bar.png");
+	healthItemImage = new QPixmap ("sprites/health_item.png");	
 	playerProjectileImage = new QPixmap ("sprites/player_projectile.png");
 	enemyProjectileImage = new QPixmap ("sprites/enemy_projectile.png");
 	bossProjectileImage = new QPixmap ("sprites/boss_projectile.png");
@@ -191,11 +192,35 @@ void GameWindow::handleTimer()
 					if (dynamic_cast<EnemyProjectile*>(things_.at(j)) != NULL || dynamic_cast<EnemyCloseRange*>(things_.at(j)) != NULL || dynamic_cast<EnemyLongRange*>(things_.at(j)) != NULL || dynamic_cast<EnemyBoss*>(things_.at(j)) != NULL) {
 						things_.at(j)->health_ --;
 	    				things_.at(i)->health_ --;
+
+	    				//If it hit the player, remove it and decrease health
+	    				if (dynamic_cast<Player*>(things_.at(i)) != NULL)
+	    				{
+	    					scene->removeItem(things_.at(j));
+    						delete things_.at(j);
+    						things_.remove(j);
+	    					scene->removeItem(health_.back());
+    						delete health_.back();
+    						health_.remove(health_.size() - 1);
+
+	    				}
+					}
+					if (dynamic_cast<Player*>(things_.at(i)) != NULL && dynamic_cast<HealthItem*>(things_.at(j)) != NULL)
+					{
+						if (health_.size() < 5) {
+							scene->removeItem(things_.at(j));
+							delete things_.at(j);
+							things_.remove(j);
+							things_.at(i)->health_ ++;
+							health = new Health(*healthImage, this, scene);
+							health->setNum(health_.size());
+							health_.push_back(health);
+							scene->addItem(health);
+						}
+
 					}
 
 				}
-
-
 			}
 		}
 
@@ -214,28 +239,28 @@ void GameWindow::handleTimer()
 	timerCount++;
 
 	//To spawn new things
-	if (timerCount % 200 == 2)
-	{
+	if (timerCount % 200 == 2) {
 		EnemyCloseRange *enemyC = new EnemyCloseRange(*closeRange1Image, this, scene);
 		things_.push_back(enemyC);
 		scene->addItem(enemyC);
 
 	}	
-
-	if (timerCount % 600 == 100)
-	{
+	if (timerCount % 600 == 100) {
 		EnemyLongRange *enemyL = new EnemyLongRange(*longRange1Image, this, scene);
 		things_.push_back(enemyL);
 		scene->addItem(enemyL);
 
 	}	
-
-	if (timerCount % 8000 == 2000)
-	{
+	if (timerCount % 8000 == 2000) {
 		EnemyBoss *enemyB = new EnemyBoss(*boss1Image, this, scene);
 		things_.push_back(enemyB);
 		scene->addItem(enemyB);
-	}	
+	}
+	if (timerCount % 3000 == 1200) {
+		HealthItem *healthI = new HealthItem(*healthItemImage, this, scene);
+		things_.push_back(healthI);
+		scene->addItem(healthI);
+	}		
 
 	//To shoot player projectiles
 	if (pressedSpace && timerCount % 20 == 0)
