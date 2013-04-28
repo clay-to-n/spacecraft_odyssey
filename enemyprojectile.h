@@ -33,6 +33,7 @@ class EnemyProjectile : public Thing
     ~EnemyProjectile();
     void mousePressEvent(QGraphicsSceneMouseEvent *e);
     void setIntPos(int x, int y);
+    void setVelocity(int vx, int vy);
 
   private:
     QGraphicsScene *scene_;

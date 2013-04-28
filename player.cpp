@@ -15,6 +15,7 @@
 Player::Player(QPixmap & pixmap, GameWindow * parent, QGraphicsScene *scene) : Thing(pixmap, 0, 0)
 { 
     offscreen = false;
+    shoots = false;
     scene_ = scene;
     parent_ = parent;
     x_ = 200;

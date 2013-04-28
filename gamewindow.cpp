@@ -19,6 +19,7 @@ GameWindow::GameWindow()  {
 	healthImage = new QPixmap ("sprites/health_bar.png");	
 	playerProjectileImage = new QPixmap ("sprites/player_projectile.png");
 	enemyProjectileImage = new QPixmap ("sprites/enemy_projectile.png");
+	bossProjectileImage = new QPixmap ("sprites/boss_projectile.png");
 	backgroundImage = new QPixmap ("sprites/backgroundnoclouds.png");
 	backgroundImage2 = new QPixmap ("sprites/backgroundnoclouds.png");
 	cloudsImage = new QPixmap ("sprites/backgroundclouds.png");
@@ -116,74 +117,6 @@ void GameWindow::startGame()
 	}
 }*/
 
-
-/** Moves the tile specified by determining which direction it must move in and then starting the timer.
-* @param tile Pointer to the tile to move
-*/
-void GameWindow::moveObject()
-{
-/*
-	if (timer_->isActive()) return;
-	timerTile = tile;
-	int * tilesTemp = b_->getTiles();
-	int empty = -1;
-	int position = -1;
-	timerX = 0;
-	timerY = 0;
-	int dim = static_cast<int>(sqrt(b_->getSize()));
-	timerCount = 0;
-	timerMax = tileSize;
-
-	for (int i = 0; i < b_->getSize(); i++)
-    {
-      if (tilesTemp[i] == 0)
-        empty = i;
-    }
-    for (int j = 0; j < (b_->getSize()); j++)
-    {
-      if (tilesTemp[j] == tile->getNum())
-        position = j;
-    }
-
-	if (position == empty + 1)
-	{
-		//The blank is to the left of the tile
-		timerX = -1;
-		timerY = 0;
-		timer_->start();
-	}
-	else if (position == empty - 1)
-	{
-		//The blank is to the right of the tile
-		timerX = 1;
-		timerY = 0;
-		timer_->start();
-	
-	}
-	else if (position == empty + dim)
-	{
-		//The blank is up from the tile
-		timerX = 0;
-		timerY = -1;
-		timer_->start();
-		
-	}
-	else if (position == empty - dim)
-	{
-		//The blank is down from the tile
-		timerX = 0;
-		timerY = 1;
-		timer_->start();
-	
-	}
-	b_->move(tile->getNum());
-	timerCount = 0;
-	if (b_->solved())
-		error->setText("Board is solved!");*/
-}
-
-
-
 /** This slot moves the tile by one pixel per tick of the timer by calling the GUITile's move function.
 */
 void GameWindow::handleTimer() 
@@ -193,31 +126,23 @@ void GameWindow::handleTimer()
 	{
 		bg_->move();
 		bg2_->move();	
-
-		if (bg_->y() == -4360 )
-		{
+		if (bg_->y() == -4360 ) {
 				bg2_->setIntPos(0, -(4360+4460+505));
 		}
-
-		if (bg2_->y() == -4360 )
-		{
+		if (bg2_->y() == -4360 ) {
 				bg_->setIntPos(0, -(4360+4460+540));
 		}
 	}
-
+	
+	//To move the Clouds
 	if (timerCount % 4 == 0)
 	{
-	
 		clouds_->move();
 		clouds2_->move();	
-
-		if (clouds_->y() == -4360 )
-		{
+		if (clouds_->y() == -4360 ) {
 				clouds2_->setIntPos(0, -(4360+4460+505));
 		}
-
-		if (clouds2_->y() == -4360 )
-		{
+		if (clouds2_->y() == -4360 ) {
 				clouds_->setIntPos(0, -(4360+4460+540));
 		}
 	}
@@ -240,6 +165,22 @@ void GameWindow::handleTimer()
 	    	}
 	    	things_.at(i)->cooldown++;
     	}
+
+	    //To trigger boss attack
+	    if (things_.at(i)->shoots && things_.at(i)->health_ > 3)
+    	{
+			if (timerCount % 800 == 700)
+			{
+				for (int j = 0; j < 7; j++) {
+					EnemyProjectile * bossAttack = new EnemyProjectile(*bossProjectileImage, this, scene);
+			        things_.push_back(bossAttack);
+			        bossAttack->setIntPos(((things_.at(i)->x())+.45*(things_.at(i)->pixmap().width())), ((things_.at(i)->y())+10));
+			        bossAttack->setVelocity((j-3), (4-abs(j-3)));
+			        scene->addItem(bossAttack);
+			    }
+
+		}
+		}
 
     	//To move the things
     	things_.at(i)->move();
@@ -268,6 +209,13 @@ void GameWindow::handleTimer()
 		things_.push_back(enemyL);
 		scene->addItem(enemyL);
 
+	}	
+
+	if (timerCount % 8000 == 2000)
+	{
+		EnemyBoss *enemyB = new EnemyBoss(*boss1Image, this, scene);
+		things_.push_back(enemyB);
+		scene->addItem(enemyB);
 	}	
 
 	//To shoot player projectiles

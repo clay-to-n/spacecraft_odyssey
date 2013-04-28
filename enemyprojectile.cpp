@@ -19,6 +19,7 @@ EnemyProjectile::EnemyProjectile(QPixmap & pixmap, GameWindow * parent, QGraphic
     scene_ = scene;
     parent_ = parent;
     vy_ = 4;
+    vx_ = 0;
     health_ = 3;
     setZValue(4);
     setPos(0,0);
@@ -46,6 +47,12 @@ void EnemyProjectile::setIntPos(int x, int y)
 
 }
 
+void EnemyProjectile::setVelocity(int vx, int vy)
+{
+    vx_ = vx;
+    vy_ = vy;
+}
+
 /** Moves the EnemyProjectile by updating it's position and calling rectangle's moveTo function.
 * @param x The x distance to move
 * @param y The y distance to move
@@ -53,8 +60,13 @@ void EnemyProjectile::setIntPos(int x, int y)
 void EnemyProjectile::move()
 {
     y_ += vy_;
+    x_ += vx_;
 
     if (y_ > parent_->ySize_ )
+        offscreen = true;
+    if (x_ > parent_->xSize_ )
+        offscreen = true;
+    if (x_ < -10 )
         offscreen = true;
 
     setPos(x_, y_);

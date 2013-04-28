@@ -1,5 +1,5 @@
-#ifndef THING_H
-#define THING_H
+#ifndef ENEMYBOSS_H
+#define ENEMYBOSS_H
 
 #include <QtGui/QMainWindow>
 #include <QGraphicsScene>
@@ -14,8 +14,7 @@
 #include <QListView>
 #include <QGraphicsSimpleTextItem>
 #include <QGraphicsSceneMouseEvent>
-#include <sstream>
-#include <time.h>
+#include "thing.h"
 
 
 
@@ -26,29 +25,24 @@ class GameWindow;
   separately, then to extract coordinates from the QRectF that is contained within
   the QGraphicsRectItem
   */
-class Thing : public QGraphicsPixmapItem 
+class EnemyBoss : public Thing
 {
 
   public:
-    Thing(QPixmap &pixmap, int x, int y);
-    ~Thing();
-    virtual void move() = 0;
-    bool offscreen;
-    bool shoots;
-    int cooldown;
-    int health_;
+    EnemyBoss(QPixmap &pixmap, GameWindow *parent, QGraphicsScene *scene);
+    ~EnemyBoss();
+    void mousePressEvent(QGraphicsSceneMouseEvent *e);
 
-
-
-  protected:
+  private:
     QGraphicsScene *scene_;
     GameWindow *parent_;
-    double vx_;
-    double vy_;
-    int x_;
-    int y_;
-    
+    int yBarrier;
+    int barrierTemp;
 
+
+
+  public slots:
+    void move();
 };
 
-#endif // THING_H
+#endif // ENEMYBOSS_H

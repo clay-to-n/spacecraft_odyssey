@@ -21,11 +21,13 @@
 #include <QPixmap>
 #include <ostream>
 #include <QVector>
+#include <cmath>
 #include "mainwindow.h"
 #include "player.h"
 #include "health.h"
 #include "enemycloserange.h"
 #include "enemylongrange.h"
+#include "enemyboss.h"
 #include "scrollingbackground.h"
 #include "playerprojectile.h"
 #include "enemyprojectile.h"
@@ -52,7 +54,6 @@ public:
 	//void setBoard(Board *b);
 	void setMainWindow(MainWindow *mainWindow);
 	void startGame();
-	void moveObject();
 	/** Vector of GUITiles which will be displayed. */
 	QLineEdit *error;
 	/** Pointer to the board class that is being used. */
@@ -78,6 +79,7 @@ private:
 	QPixmap * healthImage;
 	QPixmap * playerProjectileImage;	
 	QPixmap * enemyProjectileImage;
+	QPixmap * bossProjectileImage;
 	QPixmap * backgroundImage;
 	QPixmap * backgroundImage2;
 	QPixmap * cloudsImage;
