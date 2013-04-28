@@ -19,8 +19,10 @@ GameWindow::GameWindow()  {
 	healthImage = new QPixmap ("sprites/health_bar.png");	
 	playerProjectileImage = new QPixmap ("sprites/player_projectile.png");
 	enemyProjectileImage = new QPixmap ("sprites/enemy_projectile.png");
-	backgroundImage = new QPixmap ("sprites/starcraftbackground.jpg");
-	backgroundImage2 = new QPixmap ("sprites/starcraftbackground.jpg");
+	backgroundImage = new QPixmap ("sprites/backgroundnoclouds.png");
+	backgroundImage2 = new QPixmap ("sprites/backgroundnoclouds.png");
+	cloudsImage = new QPixmap ("sprites/backgroundclouds.png");
+	cloudsImage2 = new QPixmap ("sprites/backgroundclouds.png");
     playerImage = new QPixmap ("sprites/toss_arbiter.png");
     longRange1Image = new QPixmap ("sprites/toss_scout.gif");
     closeRange1Image = new QPixmap ("sprites/toss_corsair.gif");
@@ -29,18 +31,24 @@ GameWindow::GameWindow()  {
 
     bg_ = new ScrollingBackground(*backgroundImage, this, scene);
     bg2_ = new ScrollingBackground(*backgroundImage2, this, scene);
+    clouds_ = new ScrollingBackground(*cloudsImage, this, scene);
+    clouds2_ = new ScrollingBackground(*cloudsImage2, this, scene);
 
 	view->setSceneRect(0.0, 0.0, 480, 580);	
 
 
     scene->addItem(bg_);
     scene->addItem(bg2_);
+    scene->addItem(clouds_);
+    scene->addItem(clouds2_);
+
 
     bg2_->setIntPos(0, (-(4360+4460+505)));
+    clouds2_->setIntPos(0, (-(4360+4460+505)));
 
 
     timer = new QTimer();
-    speed = 9; 
+    speed = 9; //9
     timer->setInterval(speed);
     connect(timer, SIGNAL(timeout()), this, SLOT(handleTimer()));
 	
@@ -184,7 +192,8 @@ void GameWindow::handleTimer()
 	if (timerCount % 12 == 0)
 	{
 		bg_->move();
-		bg2_->move();		
+		bg2_->move();	
+
 		if (bg_->y() == -4360 )
 		{
 				bg2_->setIntPos(0, -(4360+4460+505));
@@ -193,6 +202,23 @@ void GameWindow::handleTimer()
 		if (bg2_->y() == -4360 )
 		{
 				bg_->setIntPos(0, -(4360+4460+540));
+		}
+	}
+
+	if (timerCount % 4 == 0)
+	{
+	
+		clouds_->move();
+		clouds2_->move();	
+
+		if (clouds_->y() == -4360 )
+		{
+				clouds2_->setIntPos(0, -(4360+4460+505));
+		}
+
+		if (clouds2_->y() == -4360 )
+		{
+				clouds_->setIntPos(0, -(4360+4460+540));
 		}
 	}
 	

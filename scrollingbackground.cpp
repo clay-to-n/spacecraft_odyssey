@@ -41,6 +41,7 @@ void ScrollingBackground::setIntPos(int x, int y)
     y_ = y;
     setPos(x_, y_);
 }
+
 /** Moves the ScrollingBackground by updating it's position and calling rectangle's moveTo function.
 * @param x The x distance to move
 * @param y The y distance to move

@@ -72,12 +72,16 @@ private:
 	QVector<Thing*> health_;
 	ScrollingBackground * bg_;	
 	ScrollingBackground * bg2_;
+	ScrollingBackground * clouds_;	
+	ScrollingBackground * clouds2_;
 	MainWindow * mainWindow_;
 	QPixmap * healthImage;
 	QPixmap * playerProjectileImage;	
 	QPixmap * enemyProjectileImage;
 	QPixmap * backgroundImage;
 	QPixmap * backgroundImage2;
+	QPixmap * cloudsImage;
+	QPixmap * cloudsImage2;
 	QPixmap * playerImage;
 	QPixmap * longRange1Image;
 	QPixmap * closeRange1Image;
