@@ -171,20 +171,39 @@ void GameWindow::handleTimer()
     	{
 			if (timerCount % 800 == 700)
 			{
-				for (int j = 0; j < 7; j++) {
+				for (int w = 0; w < 7; w++) {
 					EnemyProjectile * bossAttack = new EnemyProjectile(*bossProjectileImage, this, scene);
 			        things_.push_back(bossAttack);
 			        bossAttack->setIntPos(((things_.at(i)->x())+.45*(things_.at(i)->pixmap().width())), ((things_.at(i)->y())+10));
-			        bossAttack->setVelocity((j-3), (4-abs(j-3)));
+			        bossAttack->setVelocity((w-3), (4-abs(w-3)));
 			        scene->addItem(bossAttack);
 			    }
-
+			}
 		}
+
+		//To check for collisions
+		for (int j = 0; j < things_.size(); j++)
+		{
+			if (things_.at(i)->collidesWithItem(things_.at(j)))
+			{
+				if (dynamic_cast<Player*>(things_.at(i)) != NULL || dynamic_cast<PlayerProjectile*>(things_.at(i)) != NULL) 
+				{
+					if (dynamic_cast<EnemyProjectile*>(things_.at(j)) != NULL || dynamic_cast<EnemyCloseRange*>(things_.at(j)) != NULL || dynamic_cast<EnemyLongRange*>(things_.at(j)) != NULL || dynamic_cast<EnemyBoss*>(things_.at(j)) != NULL) {
+						things_.at(j)->health_ --;
+	    				things_.at(i)->health_ --;
+					}
+
+				}
+
+
+			}
 		}
 
     	//To move the things
     	things_.at(i)->move();
-    	if (things_.at(i)->offscreen == true)
+
+    	//To remove dead or off-screen things
+    	if (things_.at(i)->offscreen == true || things_.at(i)->health_ < 1)
     	{
     		scene->removeItem(things_.at(i));
     		delete things_.at(i);

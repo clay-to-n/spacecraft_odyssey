@@ -32,7 +32,8 @@ class Thing : public QGraphicsPixmapItem
   public:
     Thing(QPixmap &pixmap, int x, int y);
     ~Thing();
-    virtual void move() = 0;
+    virtual void move() = 0;    
+    //virtual void collision(Thing* item) = 0;
     bool offscreen;
     bool shoots;
     int cooldown;
