@@ -37,6 +37,7 @@ class Thing : public QGraphicsPixmapItem
     bool offscreen;
     bool shoots;
     int cooldown;
+    int level;
     int health_;
 
 

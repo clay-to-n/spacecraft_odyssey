@@ -29,7 +29,10 @@ EnemyBoss::EnemyBoss(QPixmap & pixmap, GameWindow * parent, QGraphicsScene *scen
     setPos(x_, y_);
     setZValue(5);
     yBarrier = (100);
-    health_ = 8;
+    health_ = 5;
+    vxDefault = -1;
+    vyDefault = -1;
+    level = 0;
 }
 
 /** Destructor */
@@ -50,17 +53,44 @@ void EnemyBoss::mousePressEvent(QGraphicsSceneMouseEvent *e)
 * @param x The x distance to move
 * @param y The y distance to move
 */
+
+void EnemyBoss::setLevel(int levelCount)
+{
+    health_ += levelCount;
+    switch (levelCount % 3){
+        case 0:
+            level = 0;
+            break;
+        case 1:
+            level = 1;
+            health_ += 2*levelCount;
+            vxDefault = 1;
+            vyDefault = 0;
+            break;
+        case 2:
+            level = 2;
+            vxDefault = -2;
+            yBarrier = 250;
+            break;
+    }
+
+}
+
 void EnemyBoss::move()
 {
     cooldown++;
+    if (level > 0 && cooldown < 150)
+    {
+        cooldown++;
+    }
 
     if (y_ > parent_->ySize_ )
         offscreen = true;
     if (y_ > yBarrier-barrierTemp && vy_ > 0)
     {
-        vy_ = -vy_;
+        vy_ = vyDefault;
         if (vx_ == 0)
-            vx_ = -1;
+            vx_ = vxDefault;
         barrierTemp = rand()%60;
     }
     if ( vy_ < 0 && y_ < -40)

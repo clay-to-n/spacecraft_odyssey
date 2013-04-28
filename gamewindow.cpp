@@ -30,6 +30,9 @@ GameWindow::GameWindow()  {
     longRange1Image = new QPixmap ("sprites/toss_scout.gif");
     closeRange1Image = new QPixmap ("sprites/toss_corsair.gif");
     boss1Image = new QPixmap ("sprites/toss_carrier.gif");
+    boss2Image = new QPixmap ("sprites/terran_bc.gif");
+    boss3Image = new QPixmap ("sprites/toss_arbiter.gif");
+
 
 
     bg_ = new ScrollingBackground(*backgroundImage, this, scene);
@@ -90,6 +93,7 @@ void GameWindow::startGame()
 		scene->addItem(health);
 	}
 	timerCount = 0;
+	levelCount = 0;
 	timerMax = 400;
 	timer->start();
 
@@ -111,6 +115,7 @@ void GameWindow::startInvincibleGame()
 		scene->addItem(health);
 	}
 	timerCount = 0;
+	levelCount = 0;
 	timerMax = 400;
 	timer->start();
 		error->setText("Move using WASD keys.  Shoot with Spacebar.  You're invincible!");
@@ -169,7 +174,30 @@ void GameWindow::handleTimer()
 	    //To trigger boss attack
 	    if (things_.at(i)->shoots && things_.at(i)->health_ > 3)
     	{
-			if (timerCount % 800 == 700)
+    		//Normal Boss Attack
+			if (timerCount % 800 == 200)
+			{
+				for (int w = 0; w < 7; w++) {
+					EnemyProjectile * bossAttack = new EnemyProjectile(*bossProjectileImage, this, scene);
+			        things_.push_back(bossAttack);
+			        bossAttack->setIntPos(((things_.at(i)->x())+.45*(things_.at(i)->pixmap().width())), ((things_.at(i)->y())+10));
+			        bossAttack->setVelocity((w-3), (4-abs(w-3)));
+			        scene->addItem(bossAttack);
+			    }
+			}
+			//Boss 2 special attack
+			if (timerCount % 1600 == 300 && things_.at(i)->level == 1)
+			{
+				for (int w = 0; w < 5; w++) {
+					EnemyProjectile * bossAttack = new EnemyProjectile(*bossProjectileImage, this, scene);
+			        things_.push_back(bossAttack);
+			        bossAttack->setIntPos(((things_.at(i)->x())+.45*(things_.at(i)->pixmap().width())), ((things_.at(i)->y())+10));
+			        bossAttack->setVelocity((w-2), 2);
+			        scene->addItem(bossAttack);
+			    }
+			}
+			//Boss 3 special attack
+			if (timerCount % 800 == 790 && things_.at(i)->level == 2)
 			{
 				for (int w = 0; w < 7; w++) {
 					EnemyProjectile * bossAttack = new EnemyProjectile(*bossProjectileImage, this, scene);
@@ -205,20 +233,24 @@ void GameWindow::handleTimer()
 	    				if (dynamic_cast<EnemyBoss*>(things_.at(j)) != NULL && things_.at(j)->health_ == 0)
 	    				{
 	    					timerCount = 0;
+	    					levelCount ++;
 							if (speed > 5) {
 								speed = speed - 1;
 								timerMax = timerMax*(speed+1/(speed));
 								timer->setInterval(speed);
+								timerCount = 0;
 							}
-							else if (speed > 2) {
+							else if (speed > 3) {
 								speed = speed - 0.5;
 								timerMax = timerMax*(speed+0.5/(speed));
 								timer->setInterval(speed);
+								timerCount = 0;
 							}
 
 	    				}
 					}
 				
+					//To check if the player picked up Health item
 					if (dynamic_cast<Player*>(things_.at(i)) != NULL && dynamic_cast<HealthItem*>(things_.at(j)) != NULL)
 					{
 						if (health_.size() < 5) {
@@ -239,11 +271,8 @@ void GameWindow::handleTimer()
     	//To move the things
     	things_.at(i)->move();
 
-    	if (timerCount %500 == 5){
-    		//std::cout << "Invincible is:" << invincibleMode;
-    		std::cout << "health is: " << health_.size();
-    	}
 
+    	//To regain health in Invincible Mode
 		if (invincibleMode && player->health_ < 1)
 		{
 			player->health_ = 5;
@@ -265,26 +294,52 @@ void GameWindow::handleTimer()
     	}
     }
 
-	timerCount++;
-
 	//To spawn new things
-	if (timerCount % 200 == 2) {
+	if (timerCount > 600 && timerCount % 200 == 2) {
 		EnemyCloseRange *enemyC = new EnemyCloseRange(*closeRange1Image, this, scene);
 		things_.push_back(enemyC);
 		scene->addItem(enemyC);
-
 	}	
-	if (timerCount % 600 == 100) {
+
+	if (timerCount > 3500 && timerCount < 4200 && timerCount % 150 == 100) {
+		EnemyCloseRange *enemyC = new EnemyCloseRange(*closeRange1Image, this, scene);
+		things_.push_back(enemyC);
+		scene->addItem(enemyC);
+	}
+	if (timerCount > 1300 && timerCount % 600 == 100) {
 		EnemyLongRange *enemyL = new EnemyLongRange(*longRange1Image, this, scene);
 		things_.push_back(enemyL);
 		scene->addItem(enemyL);
-
 	}	
-	if (timerCount % 8000 == 2000) {
-		EnemyBoss *enemyB = new EnemyBoss(*boss1Image, this, scene);
-		things_.push_back(enemyB);
-		scene->addItem(enemyB);
+	if (timerCount > 2500 && timerCount < 2750 && timerCount % 80 == 50) {
+		EnemyLongRange *enemyL = new EnemyLongRange(*longRange1Image, this, scene);
+		things_.push_back(enemyL);
+		scene->addItem(enemyL);
+	}	
+
+	if (timerCount == 4000) {
+		//To choose which boss to spawn
+		EnemyBoss *enemyB = NULL;
+		switch(levelCount % 3)
+		{
+			case 0:
+				enemyB = new EnemyBoss(*boss1Image, this, scene);
+				enemyB->setLevel(0);
+				break;
+			case 1:
+				enemyB = new EnemyBoss(*boss2Image, this, scene);
+				enemyB->setLevel(1);
+				break;
+			case 2:
+				enemyB = new EnemyBoss(*boss3Image, this, scene);
+				enemyB->setLevel(2);
+				break;
+		}
+			things_.push_back(enemyB);
+			scene->addItem(enemyB);
 	}
+
+	//To spawn health
 	if (timerCount % 3000 == 1200) {
 		HealthItem *healthI = new HealthItem(*healthItemImage, this, scene);
 		things_.push_back(healthI);
@@ -299,5 +354,7 @@ void GameWindow::handleTimer()
         playerBullet->setIntPos(((things_.at(0)->x())+.45*(things_.at(0)->pixmap().width())), ((things_.at(0)->y())+10));
         scene->addItem(playerBullet);
     }
+
+    timerCount++;
 
 }

@@ -31,6 +31,9 @@ class EnemyBoss : public Thing
   public:
     EnemyBoss(QPixmap &pixmap, GameWindow *parent, QGraphicsScene *scene);
     ~EnemyBoss();
+    void setLevel(int levelCount);
+
+
     void mousePressEvent(QGraphicsSceneMouseEvent *e);
 
   private:
@@ -38,6 +41,8 @@ class EnemyBoss : public Thing
     GameWindow *parent_;
     int yBarrier;
     int barrierTemp;
+    int vxDefault;
+    int vyDefault;
 
 
 

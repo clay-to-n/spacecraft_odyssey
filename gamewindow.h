@@ -68,6 +68,7 @@ public:
 
 private:
 	int timerCount;
+	int levelCount;
 	int timerMax;
 	//int tileSize;
 	int speed;
@@ -93,6 +94,8 @@ private:
 	QPixmap * longRange1Image;
 	QPixmap * closeRange1Image;
 	QPixmap * boss1Image;
+	QPixmap * boss2Image;
+	QPixmap * boss3Image;
 	Player * player;
 	Health * health;
 	/** Pointer to a GUITile that will be animated. */

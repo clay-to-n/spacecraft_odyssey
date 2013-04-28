@@ -18,6 +18,7 @@ Thing::Thing(QPixmap & pixmap, int x, int y) : QGraphicsPixmapItem(pixmap)
     y_ = y;
     setPos(x_, y_);
     cooldown = 0;
+    level = 0;
 }
 
 /** Destructor */
