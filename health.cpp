@@ -1,17 +1,11 @@
 #include "health.h"
 #include "gamewindow.h"
 
-/** Default constructor.  Creates a Health with the specified parameters.
-* @param width The width of the tile
-* @param height The height of the tile
-* @param x The x-position of the tile
-* @param y The y-position of the tile
-* @param num The number displayed on the tile
-* @param parent The GameWindow object which created this Health
+/** Default constructor.  Creates a Health indicator with the specified parameters.
+* @param pixmap The Pixmap to display this object with
+* @param parent The GameWindow which created this object
+* @param scene The scene in which this object exists
 */
-//Health::Health(int width, int height, int x, int y, GameWindow *parent) :
-    //QGraphicsPixmapItem(x, y, width, height) {
-
 Health::Health(QPixmap & pixmap, GameWindow * parent, QGraphicsScene *scene) : Thing(pixmap, 0, 0)
 { 
     offscreen = false;
@@ -31,19 +25,14 @@ Health::~Health()
 
 }
 
-/** Implementation of mousePressEvent to move the tile.
-* @param e Standard mouse click pointer implementation
-*/
-
+/**Sets the position of this object based on how many health indicators there already are */
 void Health::setNum(int num)
 {
     x_ += 29*num;
     setPos(x_, y_);
 }
-/** Moves the Health by updating it's position and calling rectangle's moveTo function.
-* @param x The x distance to move
-* @param y The y distance to move
-*/
+
+/**Unused move function */
 void Health::move()
 {
     

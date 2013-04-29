@@ -19,26 +19,22 @@
 
 
 class GameWindow;
+
 /**
-  This class maintains the location, size, and speed of a QGraphicsRectItem.
-  It is easier to do the arithmetic with this data, and then update the position
-  separately, then to extract coordinates from the QRectF that is contained within
-  the QGraphicsRectItem
-  */
+  This class contains all data necessary to manage long-range enemy objects.
+*/
 class EnemyLongRange : public Thing
 {
 
   public:
     EnemyLongRange(QPixmap &pixmap, GameWindow *parent, QGraphicsScene *scene);
     ~EnemyLongRange();
-    void mousePressEvent(QGraphicsSceneMouseEvent *e);
 
   private:
     QGraphicsScene *scene_;
     GameWindow *parent_;
+    /** This is the maximum distance from the top of the screen that this enemy will travel */
     int yBarrier;
-
-
 
   public slots:
     void move();

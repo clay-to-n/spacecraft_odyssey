@@ -1,17 +1,11 @@
 #include "explosion.h"
 #include "gamewindow.h"
 
-/** Default constructor.  Creates a Explosion with the specified parameters.
-* @param width The width of the tile
-* @param height The height of the tile
-* @param x The x-position of the tile
-* @param y The y-position of the tile
-* @param num The number displayed on the tile
-* @param parent The GameWindow object which created this Explosion
+/** Default constructor.  Creates an Explosion with the specified parameters.
+* @param pixmap The Pixmap to display this object with
+* @param parent The GameWindow which created this object
+* @param scene The scene in which this object exists
 */
-//Explosion::Explosion(int width, int height, int x, int y, GameWindow *parent) :
-    //QGraphicsPixmapItem(x, y, width, height) {
-
 Explosion::Explosion(QPixmap & pixmap, GameWindow * parent, QGraphicsScene *scene) : Thing(pixmap, 0, 0)
 { 
     shoots = false;
@@ -29,31 +23,25 @@ Explosion::~Explosion()
 
 }
 
-/** Implementation of mousePressEvent to move the tile.
-* @param e Standard mouse click pointer implementation
-*/
-void Explosion::mousePressEvent(QGraphicsSceneMouseEvent *e)
-{
-    //parent_->moveTile(this);
-}
-
+/** This function increases the explosions health and lets the object calling it know that it is a "lingering" secondary explosion. */
 void Explosion::makeLinger()
 {
     health_ = 12;
     linger = true;
 }
 
+/** Sets the position of the Explosion as well as updating the x_ and y_ data members to reflect this.
+* @param x The x position to use
+* @param y The y position to use
+*/
 void Explosion::setIntPos(int x, int y)
 {
     x_ = x;
     y_ = y;
     setPos(x_, y_);
-
 }
 
-/** Moves the Explosion by updating it's position and calling rectangle's moveTo function.
-* @param x The x distance to move
-* @param y The y distance to move
+/** The move function for explosions is actually a simple way of decreasing their health - so that they last for a specified period of time before reaching zero health (at which time the gamewindow will delete them automatically)
 */
 void Explosion::move()
 {

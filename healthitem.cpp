@@ -9,9 +9,6 @@
 * @param num The number displayed on the tile
 * @param parent The GameWindow object which created this HealthItem
 */
-//HealthItem::HealthItem(int width, int height, int x, int y, GameWindow *parent) :
-    //QGraphicsPixmapItem(x, y, width, height) {
-
 HealthItem::HealthItem(QPixmap & pixmap, GameWindow * parent, QGraphicsScene *scene) : Thing(pixmap, 0, 0)
 { 
     shoots = false;
@@ -34,26 +31,18 @@ HealthItem::~HealthItem()
 
 }
 
-/** Implementation of mousePressEvent to move the tile.
-* @param e Standard mouse click pointer implementation
+/** Sets the position of the Background as well as updating the x_ and y_ data members to reflect this.
+* @param x The x position to use
+* @param y The y position to use
 */
-void HealthItem::mousePressEvent(QGraphicsSceneMouseEvent *e)
-{
-    //parent_->moveTile(this);
-}
-
 void HealthItem::setIntPos(int x, int y)
 {
     x_ = x;
     y_ = y;
     setPos(x_, y_);
-
 }
 
-/** Moves the HealthItem by updating it's position and calling rectangle's moveTo function.
-* @param x The x distance to move
-* @param y The y distance to move
-*/
+/** Moves the HealthItem downward */
 void HealthItem::move()
 {
     y_ += vy_;

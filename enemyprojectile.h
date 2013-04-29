@@ -17,21 +17,17 @@
 #include "thing.h"
 
 
-
 class GameWindow;
+
 /**
-  This class maintains the location, size, and speed of a QGraphicsRectItem.
-  It is easier to do the arithmetic with this data, and then update the position
-  separately, then to extract coordinates from the QRectF that is contained within
-  the QGraphicsRectItem
-  */
+  This class contains all data necessary to manage enemy projectile objects.
+*/
 class EnemyProjectile : public Thing
 {
 
   public:
     EnemyProjectile(QPixmap &pixmap, GameWindow *parent, QGraphicsScene *scene);
     ~EnemyProjectile();
-    void mousePressEvent(QGraphicsSceneMouseEvent *e);
     void setIntPos(int x, int y);
     void setVelocity(int vx, int vy);
 

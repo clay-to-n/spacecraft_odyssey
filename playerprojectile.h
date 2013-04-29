@@ -16,14 +16,10 @@
 #include <QGraphicsSceneMouseEvent>
 #include "thing.h"
 
-
-
 class GameWindow;
+
 /**
-  This class maintains the location, size, and speed of a QGraphicsRectItem.
-  It is easier to do the arithmetic with this data, and then update the position
-  separately, then to extract coordinates from the QRectF that is contained within
-  the QGraphicsRectItem
+  This class contains all data necessary to manage the player's Projectile objects.
   */
 class PlayerProjectile : public Thing
 {
@@ -31,14 +27,11 @@ class PlayerProjectile : public Thing
   public:
     PlayerProjectile(QPixmap &pixmap, GameWindow *parent, QGraphicsScene *scene);
     ~PlayerProjectile();
-    void mousePressEvent(QGraphicsSceneMouseEvent *e);
     void setIntPos(int x, int y);
 
   private:
     QGraphicsScene *scene_;
     GameWindow *parent_;
-
-
 
   public slots:
     void move();

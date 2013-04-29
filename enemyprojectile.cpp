@@ -1,17 +1,11 @@
 #include "enemyprojectile.h"
 #include "gamewindow.h"
 
-/** Default constructor.  Creates a EnemyProjectile with the specified parameters.
-* @param width The width of the tile
-* @param height The height of the tile
-* @param x The x-position of the tile
-* @param y The y-position of the tile
-* @param num The number displayed on the tile
-* @param parent The GameWindow object which created this EnemyProjectile
+/** Default constructor.  Creates an EnemyProjectile with the specified parameters.
+* @param pixmap The Pixmap to display this object with
+* @param parent The GameWindow which created this object
+* @param scene The scene in which this object exists
 */
-//EnemyProjectile::EnemyProjectile(int width, int height, int x, int y, GameWindow *parent) :
-    //QGraphicsPixmapItem(x, y, width, height) {
-
 EnemyProjectile::EnemyProjectile(QPixmap & pixmap, GameWindow * parent, QGraphicsScene *scene) : Thing(pixmap, 0, 0)
 { 
     shoots = false;
@@ -31,32 +25,28 @@ EnemyProjectile::~EnemyProjectile()
 
 }
 
-/** Implementation of mousePressEvent to move the tile.
-* @param e Standard mouse click pointer implementation
+/** Sets the position of the Enemy Projectile (so that it starts where the object creating it is) as well as updating the x_ and y_ data members to reflect this.
+* @param x The x position to use
+* @param y The y position to use
 */
-void EnemyProjectile::mousePressEvent(QGraphicsSceneMouseEvent *e)
-{
-    //parent_->moveTile(this);
-}
-
 void EnemyProjectile::setIntPos(int x, int y)
 {
     x_ = x;
     y_ = y;
     setPos(x_, y_);
-
 }
 
+/** Sets the velocity of the Enemy Projectile (so that different projectiles can have different speeds) as well as updating the vx_ and vy_ data members to reflect this.
+* @param x The x position to use
+* @param y The y position to use
+*/
 void EnemyProjectile::setVelocity(int vx, int vy)
 {
     vx_ = vx;
     vy_ = vy;
 }
 
-/** Moves the EnemyProjectile by updating it's position and calling rectangle's moveTo function.
-* @param x The x distance to move
-* @param y The y distance to move
-*/
+/** Moves the EnemyProjectile by updating it's position based on its velocities and calling rectangle's moveTo function. */
 void EnemyProjectile::move()
 {
     y_ += vy_;

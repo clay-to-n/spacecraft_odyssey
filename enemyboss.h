@@ -19,12 +19,10 @@
 
 
 class GameWindow;
+
 /**
-  This class maintains the location, size, and speed of a QGraphicsRectItem.
-  It is easier to do the arithmetic with this data, and then update the position
-  separately, then to extract coordinates from the QRectF that is contained within
-  the QGraphicsRectItem
-  */
+  This class contains all data necessary to manage enemy Boss objects.
+*/
 class EnemyBoss : public Thing
 {
 
@@ -33,9 +31,6 @@ class EnemyBoss : public Thing
     ~EnemyBoss();
     void setLevel(int levelCount);
 
-
-    void mousePressEvent(QGraphicsSceneMouseEvent *e);
-
   private:
     QGraphicsScene *scene_;
     GameWindow *parent_;
@@ -43,8 +38,6 @@ class EnemyBoss : public Thing
     int barrierTemp;
     int vxDefault;
     int vyDefault;
-
-
 
   public slots:
     void move();

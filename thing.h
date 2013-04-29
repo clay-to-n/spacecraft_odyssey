@@ -17,15 +17,8 @@
 #include <sstream>
 #include <time.h>
 
-
-
 class GameWindow;
-/**
-  This class maintains the location, size, and speed of a QGraphicsRectItem.
-  It is easier to do the arithmetic with this data, and then update the position
-  separately, then to extract coordinates from the QRectF that is contained within
-  the QGraphicsRectItem
-  */
+/** This class maintains the image, location, size, and speed of any object in the game.  All other objects to display on-screen will inherit from it.*/
 class Thing : public QGraphicsPixmapItem 
 {
 
@@ -33,15 +26,12 @@ class Thing : public QGraphicsPixmapItem
     Thing(QPixmap &pixmap, int x, int y);
     ~Thing();
     virtual void move() = 0;    
-    //virtual void collision(Thing* item) = 0;
     bool offscreen;
     bool shoots;
     int cooldown;
     int level;
     int health_;
     int score;
-
-
 
   protected:
     QGraphicsScene *scene_;
@@ -51,7 +41,6 @@ class Thing : public QGraphicsPixmapItem
     int x_;
     int y_;
     
-
 };
 
 #endif // THING_H

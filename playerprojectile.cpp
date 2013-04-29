@@ -2,16 +2,10 @@
 #include "gamewindow.h"
 
 /** Default constructor.  Creates a PlayerProjectile with the specified parameters.
-* @param width The width of the tile
-* @param height The height of the tile
-* @param x The x-position of the tile
-* @param y The y-position of the tile
-* @param num The number displayed on the tile
-* @param parent The GameWindow object which created this PlayerProjectile
+* @param pixmap The Pixmap to display this object with
+* @param parent The GameWindow which created this object
+* @param scene The scene in which this object exists
 */
-//PlayerProjectile::PlayerProjectile(int width, int height, int x, int y, GameWindow *parent) :
-    //QGraphicsPixmapItem(x, y, width, height) {
-
 PlayerProjectile::PlayerProjectile(QPixmap & pixmap, GameWindow * parent, QGraphicsScene *scene) : Thing(pixmap, 0, 0)
 { 
     shoots = false;
@@ -30,25 +24,18 @@ PlayerProjectile::~PlayerProjectile()
 
 }
 
-/** Implementation of mousePressEvent to move the tile.
-* @param e Standard mouse click pointer implementation
+/** Sets the position of the PlayerProjectile as well as updating the x_ and y_ data members to reflect this.
+* @param x The x position to use
+* @param y The y position to use
 */
-void PlayerProjectile::mousePressEvent(QGraphicsSceneMouseEvent *e)
-{
-    //parent_->moveTile(this);
-}
-
 void PlayerProjectile::setIntPos(int x, int y)
 {
     x_ = x;
     y_ = y;
     setPos(x_, y_);
-
 }
 
-/** Moves the PlayerProjectile by updating it's position and calling rectangle's moveTo function.
-* @param x The x distance to move
-* @param y The y distance to move
+/** Moves the PlayerProjectile by updating it's position according to it's data members
 */
 void PlayerProjectile::move()
 {

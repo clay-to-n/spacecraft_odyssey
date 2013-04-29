@@ -2,16 +2,10 @@
 #include "gamewindow.h"
 
 /** Default constructor.  Creates a ScrollingBackground with the specified parameters.
-* @param width The width of the tile
-* @param height The height of the tile
-* @param x The x-position of the tile
-* @param y The y-position of the tile
-* @param num The number displayed on the tile
-* @param parent The GameWindow object which created this ScrollingBackground
+* @param pixmap The Pixmap to display this object with
+* @param parent The GameWindow which created this object
+* @param scene The scene in which this object exists
 */
-//ScrollingBackground::ScrollingBackground(int width, int height, int x, int y, GameWindow *parent) :
-    //QGraphicsPixmapItem(x, y, width, height) {
-
 ScrollingBackground::ScrollingBackground(QPixmap & pixmap, GameWindow * parent, QGraphicsScene *scene) : Thing(pixmap, 0, 0)
 { 
     shoots = false;
@@ -31,10 +25,10 @@ ScrollingBackground::~ScrollingBackground()
 
 }
 
-/** Implementation of mousePressEvent to move the tile.
-* @param e Standard mouse click pointer implementation
+/** Sets the position of the Background as well as updating the x_ and y_ data members to reflect this.
+* @param x The x position to use
+* @param y The y position to use
 */
-
 void ScrollingBackground::setIntPos(int x, int y)
 {
     x_ = x;
@@ -42,10 +36,7 @@ void ScrollingBackground::setIntPos(int x, int y)
     setPos(x_, y_);
 }
 
-/** Moves the ScrollingBackground by updating it's position and calling rectangle's moveTo function.
-* @param x The x distance to move
-* @param y The y distance to move
-*/
+/** Moves the ScrollingBackground downward */
 void ScrollingBackground::move()
 {
     y_ += vy_;

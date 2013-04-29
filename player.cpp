@@ -2,16 +2,10 @@
 #include "gamewindow.h"
 
 /** Default constructor.  Creates a Player with the specified parameters.
-* @param width The width of the tile
-* @param height The height of the tile
-* @param x The x-position of the tile
-* @param y The y-position of the tile
-* @param num The number displayed on the tile
-* @param parent The GameWindow object which created this Player
+* @param pixmap The Pixmap to display this object with
+* @param parent The GameWindow which created this object
+* @param scene The scene in which this object exists
 */
-//Player::Player(int width, int height, int x, int y, GameWindow *parent) :
-    //QGraphicsPixmapItem(x, y, width, height) {
-
 Player::Player(QPixmap & pixmap, GameWindow * parent, QGraphicsScene *scene) : Thing(pixmap, 0, 0)
 { 
     offscreen = false;
@@ -31,17 +25,7 @@ Player::~Player()
 
 }
 
-/** Implementation of mousePressEvent to move the tile.
-* @param e Standard mouse click pointer implementation
-*/
-void Player::mousePressEvent(QGraphicsSceneMouseEvent *e)
-{
-    //parent_->moveTile(this);
-}
-
-/** Moves the Player by updating it's position and calling rectangle's moveTo function.
-* @param x The x distance to move
-* @param y The y distance to move
+/** Moves the Player by updating it's position and calling a set Position function.
 */
 void Player::move()
 {
@@ -63,7 +47,4 @@ void Player::move()
     }
 
     setPos(x_, y_);
-
-
-
 }

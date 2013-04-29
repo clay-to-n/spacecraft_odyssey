@@ -1,20 +1,13 @@
 #include "enemylongrange.h"
 #include "gamewindow.h"
 
-/** Default constructor.  Creates a EnemyLongRange with the specified parameters.
-* @param width The width of the tile
-* @param height The height of the tile
-* @param x The x-position of the tile
-* @param y The y-position of the tile
-* @param num The number displayed on the tile
-* @param parent The GameWindow object which created this EnemyLongRange
+/** Default constructor.  Creates a Long Range Enemy with the specified parameters.
+* @param pixmap The Pixmap to display this object with
+* @param parent The GameWindow which created this object
+* @param scene The scene in which this object exists
 */
-//EnemyLongRange::EnemyLongRange(int width, int height, int x, int y, GameWindow *parent) :
-    //QGraphicsPixmapItem(x, y, width, height) {
-
 EnemyLongRange::EnemyLongRange(QPixmap & pixmap, GameWindow * parent, QGraphicsScene *scene) : Thing(pixmap, 0, 0)
 { 
-
     shoots = true;
     offscreen = false;
     srand(time(NULL));
@@ -38,17 +31,7 @@ EnemyLongRange::~EnemyLongRange()
 
 }
 
-/** Implementation of mousePressEvent to move the tile.
-* @param e Standard mouse click pointer implementation
-*/
-void EnemyLongRange::mousePressEvent(QGraphicsSceneMouseEvent *e)
-{
-    //parent_->moveTile(this);
-}
-
-/** Moves the EnemyLongRange by updating it's position and calling rectangle's moveTo function.
-* @param x The x distance to move
-* @param y The y distance to move
+/** Moves the EnemyLongRange according to it's current velocities and the randomly generated yBarrier.
 */
 void EnemyLongRange::move()
 {
@@ -75,7 +58,7 @@ void EnemyLongRange::move()
     }
     if (x_ < 0 || x_ > (parent_->xSize_ - pixmap().width()))
         vx_ = -vx_;
-    //else
+
     y_ += vy_;
     x_ += vx_;
     setPos(x_, y_);
