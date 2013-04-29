@@ -27,8 +27,7 @@
 #define WINDOW_MAX_X 250
 #define WINDOW_MAX_Y 350
 
-/**
-  This class is the main window in which all other elements of the program reside in.
+/** This class is the main window in which all other elements of the program reside in.
   */
 class GameWindow;
 
@@ -36,7 +35,7 @@ class MainWindow : public QWidget {
     Q_OBJECT
     
 public:
-    /** Default constructor which constructs the main window, which consists of a "gameboard" surrounded by buttons, forms for input, and a list view for error messages and cheat function output.
+    /** Default constructor which constructs the main window, which consists of a "gameView" followed by inputs and buttons to start the game.
     */
     explicit MainWindow();
     /** Destructor */

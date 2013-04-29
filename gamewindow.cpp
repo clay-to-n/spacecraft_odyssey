@@ -1,10 +1,8 @@
 #include "gamewindow.h"
 
-/** Default constructor.  Creates a board, then calls setBoard on it to add it to the gameplay window.  Also initializes and connects the timer.
+/** Default constructor.  Initializes various variables, creates a new scene and a new view, and creates pointers to every image used in the game.  Creates the scrolling background images, as well as items that will display the player's name and score.  Also sets up the timer.
 */
 GameWindow::GameWindow()  {
-
-	//Create new board, then iterate through and create a GUITile for each board tile in the correct location
 
 	pressedW = false;
 	pressedA = false;
@@ -35,8 +33,6 @@ GameWindow::GameWindow()  {
     explosionImage = new QPixmap ("sprites/explosion.png");
     explosion2Image = new QPixmap ("sprites/explosion2.png");
 
-
-
     bg_ = new ScrollingBackground(*backgroundImage, this, scene);
     bg2_ = new ScrollingBackground(*backgroundImage2, this, scene);
     clouds_ = new ScrollingBackground(*cloudsImage, this, scene);
@@ -59,10 +55,6 @@ GameWindow::GameWindow()  {
     speed = 9; //9
     timer->setInterval(speed);
     connect(timer, SIGNAL(timeout()), this, SLOT(handleTimer()));
-	
-
-
-
 }
 
 /** Destructor */
@@ -75,11 +67,16 @@ GameWindow::~GameWindow()
 	delete timer;
 }
 
+/** Associates the GameWindow object with a MainWindow
+* @param MainWindow The MainWindow to associate the GameWindow with
+*/
 void GameWindow::setMainWindow(MainWindow *mainWindow)
 {
 	mainWindow_ = mainWindow;
 }
 
+/** Starts the game in Normal mode by creating a new Player, drawing the GUI (player name and score), and starting the timer
+*/
 void GameWindow::startGame()
 {
 	invincibleMode = false;
@@ -119,6 +116,8 @@ void GameWindow::startGame()
 	error->setText("Move using WASD keys.  Shoot with Spacebar.");
 }
 
+/** Starts the game in Invincible mode by creating a new Player, drawing the GUI (player name and score), and starting the timer
+*/
 void GameWindow::startInvincibleGame()
 {
 	invincibleMode = true;
@@ -158,7 +157,7 @@ void GameWindow::startInvincibleGame()
 
 }
 
-/** This slot moves the tile by one pixel per tick of the timer by calling the GUITile's move function.
+/** This slot is where all movement of objects occurs based on the clock.  It also handles all collisions.  It spawns enemies and items according to the timer.  It checks if things are dead, and removes them if they are.  It update's the player's health and score in the GUI.  It displays explosion animations when most objects collide.
 */
 void GameWindow::handleTimer() 
 {
@@ -421,22 +420,15 @@ void GameWindow::handleTimer()
     }
 
     //To check if player died
-    if (player->health_ < 1)
-    {
+    if (player->health_ < 1) {
     	timer->stop();
     	error->setText("You've Died!  Quit and Restart to play again.");
     }
 
     //To update player's score
-
-
-
-
     scoreString = "Score: ";
     scoreString += QString::number(scoreCount);
     playerScore->setText(scoreString);
-
-
 
     timerCount++;
 

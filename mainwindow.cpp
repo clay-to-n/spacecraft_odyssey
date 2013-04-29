@@ -44,7 +44,7 @@ MainWindow::MainWindow()
 
     //This sets the size of the window and gives it a title
     this->setFixedSize( WINDOW_MAX_X*2, WINDOW_MAX_Y*2+40 );
-    this->setWindowTitle( "SpaceCraft Odyssey!!!");
+    this->setWindowTitle( "SpaceCraft Odyssey: '99 Prime Edition");
 
     QVBoxLayout *vertLayout = new QVBoxLayout;
     vertLayout->addLayout(gameLayout);
@@ -62,6 +62,9 @@ MainWindow::~MainWindow()
 
 }
 
+/** Key Press Event to keep track of what the player is pressing
+* @param e Standard key press pointer implementation
+*/
 void MainWindow::keyPressEvent(QKeyEvent *e )
 {
     switch (e->key())
@@ -88,6 +91,9 @@ void MainWindow::keyPressEvent(QKeyEvent *e )
     }
 }
 
+/** Key Release Event so that the game knows when keys are released
+* @param e Standard key press pointer implementation
+*/
 void MainWindow::keyReleaseEvent(QKeyEvent *e )
 {
     switch (e->key())
@@ -114,8 +120,8 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e )
     }
 }
 
-/** Starts the game by creating a board based on user input.  Sends the board to the gameView class to implement gameplay.
- */
+/** Starts the game if the user has entered in their name and chosen a game mode.  If the game has already started, this button pauses it.  If the game is paused, this button resumes it.
+*/
 void MainWindow::startPauseGame()
 {
     if (started == false && normalMode->isChecked() && playerName->text() != NULL)
@@ -142,7 +148,7 @@ void MainWindow::startPauseGame()
     }  
     if (started == true && !gameView->timer->isActive())
     {
-        gameView->error->setText("Move using WASD keys.  Shoot with Spacebar.");
+        gameView->error->setText("Move using WASD keys.  Hold space to shoot.");
         setFocus();
         gameView->timer->start();
         return;
@@ -150,8 +156,7 @@ void MainWindow::startPauseGame()
 
 }
 
-/** Ends the game by calling qApp's quit function.  Closes the window.
- */
+/** Ends the game by calling qApp's quit function.  Closes the window.*/
 void MainWindow::quitGame()
 {
     qApp->quit();

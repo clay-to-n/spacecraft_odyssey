@@ -38,8 +38,7 @@
 #include "enemyprojectile.h"
 #include "explosion.h"
 
-/**
-  This class will be the window in which the game is run.  It will be filled with GUITiles which the user will ineract with.
+/** This class will be the window in which the game is run.  It will be filled with the player, enemies, items, and scrolling backgrounds.
   */
 class MainWindow;
 
@@ -58,17 +57,16 @@ public:
 	bool pressedD;
 	bool pressedSpace;
 	bool invincibleMode;
+	static const int xSize_ = 482;
+	static const int ySize_ = 582;
 	QGraphicsSimpleTextItem* playerName;
 	QGraphicsSimpleTextItem* playerScore;
-	//void setBoard(Board *b);
 	void setMainWindow(MainWindow *mainWindow);
 	void startGame();
 	void startInvincibleGame();
-	/** Vector of GUITiles which will be displayed. */
+	/** LineEdit which will display messages to the user */
 	QLineEdit *error;
-	/** Pointer to the board class that is being used. */
-	static const int xSize_ = 482;
-	static const int ySize_ = 582;
+	/** Timer which controls all movements and events in the game */
 	QTimer* timer;
 
 
@@ -76,19 +74,25 @@ private:
 	int timerCount;
 	int levelCount;
 	int timerMax;
-	//int tileSize;
 	int speed;
 	int timerX;
 	int timerY;
 	int scoreCount;
 	int timerClouds;
 
+	/** QVector of everything to be displayed on the screen, besides the moving backgrounds */
 	QVector<Thing*> things_;
+	/** QVector of displayable health objects, to let the user know how much health they currently have*/
 	QVector<Thing*> health_;
+	/** Background image */
 	ScrollingBackground * bg_;	
+	/** Copy of background image to enable seamless scrolling*/
 	ScrollingBackground * bg2_;
-	ScrollingBackground * clouds_;	
+	/** Clouds image */
+	ScrollingBackground * clouds_;
+	/** Copy of clouds image to enable seamless scrolling */	
 	ScrollingBackground * clouds2_;
+	/** Pointer to the mainwindow which created this */
 	MainWindow * mainWindow_;
 	QPixmap * healthImage;
 	QPixmap * healthItemImage;
@@ -108,12 +112,11 @@ private:
 	QPixmap * explosionImage;
 	QPixmap * explosion2Image;
 	QString scoreString;
+	/** Pointer to the player object, so we can easily display his health */
 	Player * player;
+	/** A health display pointer so we can create and remove health when necessary */
 	Health * health;
-	/** Pointer to a GUITile that will be animated. */
-	
-	/** Vector of QBrushes to use to color the tiles. */
-	/** Pointer to a QTimer to be used for animation. */
+
 	
 public slots:
 	void handleTimer();

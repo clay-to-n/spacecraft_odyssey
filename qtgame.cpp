@@ -1,9 +1,9 @@
 #include <QtGui/QApplication>
 #include "mainwindow.h"
 
-/** @mainpage CSCI 102 Qt Puzzle - PA4
+/** @mainpage CSCI 102 Qt Game - SpaceCraft Odyssey: '99 Prime Edition
  @section purpose Purpose/Overview
- A simple puzzle game created using Qt.
+ A top-down 2D shooter in which the user controls a ship and fights enemies to rack up massive points.
  @section requirements Requirements
  How to call: Simply run ./game_cbrand
 */
