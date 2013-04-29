@@ -18,12 +18,16 @@ The grader should use the following procedure to compile and run the code:
 qmake -project
 qmake
 make
-
-#Doxygen Instructions
-echo "Write command here"
-#Command to run
-echo "Write command here"
+./game_cbrand
 ```
 
-### Screenshots -- [Optional]
-You can either remove this section or add screenshots if you wish.
+### Screenshots
+![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/blob/master/screenshots/screen0.png?raw=true "Screenshot 1")
+### Screenshots
+![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/blob/master/screenshots/screen1.png?raw=true "Screenshot 2")
+### Screenshots
+![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/blob/master/screenshots/screen2.png?raw=true "Screenshot 3")
+### Screenshots
+![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/blob/master/screenshots/screen3.png?raw=true "Screenshot 4")
+### Screenshots
+![alt text](https://github.com/usc-csci102-spring2013/game_cbrand/blob/master/screenshots/screen4.png?raw=true "Screenshot 5")
