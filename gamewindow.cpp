@@ -27,6 +27,8 @@ GameWindow::GameWindow()  {
     playerImage = new QPixmap ("sprites/toss_arbiter.png");
     longRange1Image = new QPixmap ("sprites/toss_scout.gif");
     closeRange1Image = new QPixmap ("sprites/toss_corsair.gif");
+    longRange2Image = new QPixmap ("sprites/terran_wraith.gif");
+    closeRange2Image = new QPixmap ("sprites/terran_valkyrie.gif");
     boss1Image = new QPixmap ("sprites/toss_carrier.gif");
     boss2Image = new QPixmap ("sprites/terran_bc.gif");
     boss3Image = new QPixmap ("sprites/toss_arbiter.gif");
@@ -360,25 +362,54 @@ void GameWindow::handleTimer()
 
 	//To spawn new things
 	if (timerCount > 600 && timerCount % 200 == 2) {
-		EnemyCloseRange *enemyC = new EnemyCloseRange(*closeRange1Image, this, scene);
-		things_.push_back(enemyC);
-		scene->addItem(enemyC);
+		if (levelCount % 3 == 1) {
+			EnemyCloseRange *enemyC = new EnemyCloseRange(*closeRange2Image, this, scene);
+			things_.push_back(enemyC);
+			scene->addItem(enemyC);
+		}
+		else {
+			EnemyCloseRange *enemyC = new EnemyCloseRange(*closeRange1Image, this, scene);
+			things_.push_back(enemyC);
+			scene->addItem(enemyC);
+		}	
+		
 	}	
 
 	if (timerCount > 3500 && timerCount < 4200 && timerCount % 150 == 100) {
-		EnemyCloseRange *enemyC = new EnemyCloseRange(*closeRange1Image, this, scene);
-		things_.push_back(enemyC);
-		scene->addItem(enemyC);
+		if (levelCount % 3 == 1) {
+			EnemyCloseRange *enemyC = new EnemyCloseRange(*closeRange2Image, this, scene);
+			things_.push_back(enemyC);
+			scene->addItem(enemyC);
+		}
+		else {
+			EnemyCloseRange *enemyC = new EnemyCloseRange(*closeRange1Image, this, scene);
+			things_.push_back(enemyC);
+			scene->addItem(enemyC);
+		}
 	}
 	if (timerCount > 1300 && timerCount % 600 == 100) {
-		EnemyLongRange *enemyL = new EnemyLongRange(*longRange1Image, this, scene);
-		things_.push_back(enemyL);
-		scene->addItem(enemyL);
+		if (levelCount % 3 == 1) {
+			EnemyLongRange *enemyL = new EnemyLongRange(*longRange2Image, this, scene);
+			things_.push_back(enemyL);
+			scene->addItem(enemyL);
+		}
+		else {
+			EnemyLongRange *enemyL = new EnemyLongRange(*longRange1Image, this, scene);
+			things_.push_back(enemyL);
+			scene->addItem(enemyL);
+		}
 	}	
 	if (timerCount > 2500 && timerCount < 2750 && timerCount % 80 == 50) {
-		EnemyLongRange *enemyL = new EnemyLongRange(*longRange1Image, this, scene);
-		things_.push_back(enemyL);
-		scene->addItem(enemyL);
+		if (levelCount % 3 != 0) {
+			EnemyLongRange *enemyL = new EnemyLongRange(*longRange2Image, this, scene);
+			things_.push_back(enemyL);
+			scene->addItem(enemyL);
+		}
+		else {
+			EnemyLongRange *enemyL = new EnemyLongRange(*longRange1Image, this, scene);
+			things_.push_back(enemyL);
+			scene->addItem(enemyL);
+		}
 	}	
 
 	if (timerCount == 4000) {

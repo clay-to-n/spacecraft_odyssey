@@ -106,6 +106,8 @@ private:
 	QPixmap * playerImage;
 	QPixmap * longRange1Image;
 	QPixmap * closeRange1Image;
+	QPixmap * longRange2Image;
+	QPixmap * closeRange2Image;
 	QPixmap * boss1Image;
 	QPixmap * boss2Image;
 	QPixmap * boss3Image;
