@@ -24,6 +24,7 @@ EnemyCloseRange::EnemyCloseRange(QPixmap & pixmap, GameWindow * parent, QGraphic
     y_ = -50;
     setZValue(5);
     health_ = 1;
+    score = 20;
     setPos(x_, y_);
 }
 

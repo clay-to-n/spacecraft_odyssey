@@ -25,6 +25,7 @@ HealthItem::HealthItem(QPixmap & pixmap, GameWindow * parent, QGraphicsScene *sc
     health_ = 1;
     setZValue(4);
     setPos(x_,0);
+    score = 30;
 }
 
 /** Destructor */

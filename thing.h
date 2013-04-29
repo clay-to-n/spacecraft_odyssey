@@ -39,6 +39,7 @@ class Thing : public QGraphicsPixmapItem
     int cooldown;
     int level;
     int health_;
+    int score;
 
 
 

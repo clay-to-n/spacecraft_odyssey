@@ -13,7 +13,7 @@ MainWindow::MainWindow()
     gameView->setMainWindow(this);
     gameView->view->setFixedSize(482, 582);
     gameLayout->addWidget(gameView->view);
-    gameView->error = new QLineEdit("Enter a name, a gamemode, and press Play");
+    gameView->error = new QLineEdit("Enter a name, a gamemode, and press Start");
     consoleLayout->addWidget(gameView->error);
 
     //For Start / Stop buttons, use GHBoxLayout
@@ -22,7 +22,7 @@ MainWindow::MainWindow()
     QVBoxLayout *buttonLayout = new QVBoxLayout;
     buttonLayout->addWidget(startButton);
     buttonLayout->addWidget(quitButton);
-    connect(startButton, SIGNAL(pressed()), this, SLOT(startGame()));
+    connect(startButton, SIGNAL(pressed()), this, SLOT(startPauseGame()));
     connect(quitButton, SIGNAL(pressed()), this, SLOT(quitGame()));
 
     //For Player Name input
@@ -116,12 +116,11 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e )
 
 /** Starts the game by creating a board based on user input.  Sends the board to the gameView class to implement gameplay.
  */
-void MainWindow::startGame()
+void MainWindow::startPauseGame()
 {
     if (started == false && normalMode->isChecked() && playerName->text() != NULL)
     {
-        name = playerName->text();
-       /// gameView->invincibleMode = false;
+        gameView->playerName->setText(playerName->text());
         gameView->startGame();
         setFocus();
         started = true;
@@ -129,8 +128,7 @@ void MainWindow::startGame()
     }   
     if (started == false && invincibleMode->isChecked() && playerName->text() != NULL)
     {
-        name = playerName->text();
-        //gameView->invincibleMode = true;
+        gameView->playerName->setText(playerName->text());
         gameView->startInvincibleGame();
         setFocus();
         started = true;
@@ -150,12 +148,6 @@ void MainWindow::startGame()
         return;
     }      
 
-}
-
-/** Starts the game by creating a board based on user input.  Sends the board to the gameView class to implement gameplay.
- */
-void MainWindow::pauseGame()
-{
 }
 
 /** Ends the game by calling qApp's quit function.  Closes the window.

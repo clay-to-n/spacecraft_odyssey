@@ -20,6 +20,7 @@
 #include <QKeyEvent>
 #include <ostream>
 #include <string>
+#include <QGraphicsSimpleTextItem>
 #include "gamewindow.h"
 
 
@@ -40,14 +41,15 @@ public:
     explicit MainWindow();
     /** Destructor */
     ~MainWindow();
+    bool started;
+    GameWindow *gameView;
     
 private:
-    bool started;
     QString name;
     QGraphicsScene *scene;
     QVBoxLayout *gameLayout;
     QVBoxLayout *consoleLayout;
-    GameWindow *gameView;
+    
     QLineEdit *playerName;
     QRadioButton *normalMode;
     QRadioButton *invincibleMode;
@@ -59,8 +61,7 @@ private:
 
 public slots:
     
-    void startGame();
-    void pauseGame();
+    void startPauseGame();
     void quitGame();
 
 };

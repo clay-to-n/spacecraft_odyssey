@@ -21,6 +21,9 @@
 #include <QPixmap>
 #include <ostream>
 #include <QVector>
+#include <QBrush>
+#include <QFont>
+#include <QString>
 #include <cmath>
 #include <iostream>
 #include "mainwindow.h"
@@ -54,6 +57,8 @@ public:
 	bool pressedD;
 	bool pressedSpace;
 	bool invincibleMode;
+	QGraphicsSimpleTextItem* playerName;
+	QGraphicsSimpleTextItem* playerScore;
 	//void setBoard(Board *b);
 	void setMainWindow(MainWindow *mainWindow);
 	void startGame();
@@ -74,6 +79,8 @@ private:
 	int speed;
 	int timerX;
 	int timerY;
+	int scoreCount;
+
 	QVector<Thing*> things_;
 	QVector<Thing*> health_;
 	ScrollingBackground * bg_;	
@@ -96,6 +103,7 @@ private:
 	QPixmap * boss1Image;
 	QPixmap * boss2Image;
 	QPixmap * boss3Image;
+	QString scoreString;
 	Player * player;
 	Health * health;
 	/** Pointer to a GUITile that will be animated. */

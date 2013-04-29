@@ -42,17 +42,16 @@ GameWindow::GameWindow()  {
 
 	view->setSceneRect(0.0, 0.0, 480, 580);	
 
-
     scene->addItem(bg_);
     scene->addItem(bg2_);
     scene->addItem(clouds_);
     scene->addItem(clouds2_);
 
-
     bg2_->setIntPos(0, (-(4360+4460+505)));
     clouds2_->setIntPos(0, (-(4360+4460+505)));
 
-
+    playerName = new QGraphicsSimpleTextItem();
+    playerScore = new QGraphicsSimpleTextItem();
     timer = new QTimer();
     speed = 9; //9
     timer->setInterval(speed);
@@ -92,6 +91,23 @@ void GameWindow::startGame()
 		health_.push_back(health);
 		scene->addItem(health);
 	}
+	QBrush * greenBrush = new QBrush(QColor(51,222,95,180));
+	QFont * font = new QFont();
+	font->setCapitalization(QFont::AllUppercase);
+	font->setPointSize(11);
+	playerName->setPos(43, 516);
+	playerName->setBrush(*greenBrush);
+	playerName->setFont(*font);
+	playerName->setZValue(8);
+	playerScore->setPos(320, 540);
+	scoreCount = 0;
+	playerScore->setText("Score: 0");
+	playerScore->setBrush(*greenBrush);
+	playerScore->setFont(*font);
+	playerScore->setZValue(8);
+	scene->addItem(playerName);
+	scene->addItem(playerScore);
+	scoreCount = 0;
 	timerCount = 0;
 	levelCount = 0;
 	timerMax = 400;
@@ -114,6 +130,23 @@ void GameWindow::startInvincibleGame()
 		health_.push_back(health);
 		scene->addItem(health);
 	}
+	QBrush * greenBrush = new QBrush(QColor(51,222,95,180));
+	QFont * font = new QFont();
+	font->setCapitalization(QFont::AllUppercase);
+	font->setPointSize(11);
+	playerName->setPos(43, 516);
+	playerName->setBrush(*greenBrush);
+	playerName->setFont(*font);
+	playerName->setZValue(8);
+	playerScore->setPos(320, 540);
+	scoreCount = 0;
+	playerScore->setText("Score: 0");
+	playerScore->setBrush(*greenBrush);
+	playerScore->setFont(*font);
+	playerScore->setZValue(8);
+	scene->addItem(playerName);
+	scene->addItem(playerScore);
+	scoreCount = 0;
 	timerCount = 0;
 	levelCount = 0;
 	timerMax = 400;
@@ -219,6 +252,7 @@ void GameWindow::handleTimer()
 					if (dynamic_cast<EnemyProjectile*>(things_.at(j)) != NULL || dynamic_cast<EnemyCloseRange*>(things_.at(j)) != NULL || dynamic_cast<EnemyLongRange*>(things_.at(j)) != NULL || dynamic_cast<EnemyBoss*>(things_.at(j)) != NULL) {
 						-- things_.at(j)->health_ ;
 	    				-- things_.at(i)->health_ ;
+	    				scoreCount += things_.at(j)->score;
 	    				
 	    				//If it hit the player, remove it and decrease health
 	    				if (dynamic_cast<Player*>(things_.at(i)) != NULL)
@@ -354,6 +388,24 @@ void GameWindow::handleTimer()
         playerBullet->setIntPos(((things_.at(0)->x())+.45*(things_.at(0)->pixmap().width())), ((things_.at(0)->y())+10));
         scene->addItem(playerBullet);
     }
+
+    //To check if player died
+    if (player->health_ < 1)
+    {
+    	timer->stop();
+    	error->setText("You've Died!  Quit and Restart to play again.");
+    }
+
+    //To update player's score
+
+
+
+
+    scoreString = "Score: ";
+    scoreString += QString::number(scoreCount);
+    playerScore->setText(scoreString);
+
+
 
     timerCount++;
 

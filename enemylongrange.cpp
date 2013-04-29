@@ -29,6 +29,7 @@ EnemyLongRange::EnemyLongRange(QPixmap & pixmap, GameWindow * parent, QGraphicsS
     setZValue(5);
     yBarrier = ((rand() % 100) + 200);
     health_ = 2;
+    score = 50;
 }
 
 /** Destructor */

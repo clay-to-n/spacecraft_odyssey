@@ -60,17 +60,20 @@ void EnemyBoss::setLevel(int levelCount)
     switch (levelCount % 3){
         case 0:
             level = 0;
+            score = 100;
             break;
         case 1:
             level = 1;
             health_ += 2*levelCount;
             vxDefault = 1;
             vyDefault = 0;
+            score = 150;
             break;
         case 2:
             level = 2;
             vxDefault = -2;
             yBarrier = 250;
+            score = 300;
             break;
     }
 
