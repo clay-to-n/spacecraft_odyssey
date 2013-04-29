@@ -32,6 +32,8 @@ GameWindow::GameWindow()  {
     boss1Image = new QPixmap ("sprites/toss_carrier.gif");
     boss2Image = new QPixmap ("sprites/terran_bc.gif");
     boss3Image = new QPixmap ("sprites/toss_arbiter.gif");
+    explosionImage = new QPixmap ("sprites/explosion.png");
+    explosion2Image = new QPixmap ("sprites/explosion2.png");
 
 
 
@@ -47,6 +49,7 @@ GameWindow::GameWindow()  {
     scene->addItem(clouds_);
     scene->addItem(clouds2_);
 
+    timerClouds = 4;
     bg2_->setIntPos(0, (-(4360+4460+505)));
     clouds2_->setIntPos(0, (-(4360+4460+505)));
 
@@ -160,7 +163,7 @@ void GameWindow::startInvincibleGame()
 void GameWindow::handleTimer() 
 {
 	//To move the Background
-	if (timerCount % 12 == 0)
+	if (timerCount % (3*timerClouds) == 0)
 	{
 		bg_->move();
 		bg2_->move();	
@@ -173,7 +176,7 @@ void GameWindow::handleTimer()
 	}
 	
 	//To move the Clouds
-	if (timerCount % 4 == 0)
+	if (timerCount % timerClouds == 0)
 	{
 		clouds_->move();
 		clouds2_->move();	
@@ -266,6 +269,8 @@ void GameWindow::handleTimer()
 	    				//If a boss is defeated, increase difficulty
 	    				if (dynamic_cast<EnemyBoss*>(things_.at(j)) != NULL && things_.at(j)->health_ == 0)
 	    				{
+	    					if (timerClouds > 2)
+	    						timerClouds --;
 	    					timerCount = 0;
 	    					levelCount ++;
 							if (speed > 5) {
@@ -320,8 +325,34 @@ void GameWindow::handleTimer()
 		}
 
     	//To remove dead or off-screen things
-    	if (things_.at(i)->offscreen == true || things_.at(i)->health_ < 1)
+    	if (things_.at(i)->offscreen == true)
     	{
+    		scene->removeItem(things_.at(i));
+    		delete things_.at(i);
+    		things_.remove(i);
+    	}
+    	if (things_.at(i)->health_ < 1)
+    	{
+    		//If they're dead, let's show an image
+    		if (dynamic_cast<HealthItem*>(things_.at(i)) == NULL && dynamic_cast<Explosion*>(things_.at(i)) == NULL)
+    		{
+	    		Explosion * explode = new Explosion(*explosionImage, this, scene);
+	    		things_.push_back(explode);
+	    		explode->setIntPos(things_.at(i)->x(), things_.at(i)->y());
+	    		scene->addItem(explode);
+	    	}
+	    	if (dynamic_cast<Explosion*>(things_.at(i)) != NULL)
+    		{
+    			Explosion * expCheck= dynamic_cast<Explosion*>(things_.at(i));
+    			if (expCheck->linger == false)
+    			{
+		    		Explosion * explode2 = new Explosion(*explosion2Image, this, scene);
+		    		explode2->makeLinger();
+		    		things_.push_back(explode2);
+		    		explode2->setIntPos(things_.at(i)->x(), things_.at(i)->y());
+		    		scene->addItem(explode2);
+		    	}	
+	    	}
     		scene->removeItem(things_.at(i));
     		delete things_.at(i);
     		things_.remove(i);

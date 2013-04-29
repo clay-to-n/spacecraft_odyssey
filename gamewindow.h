@@ -36,6 +36,7 @@
 #include "scrollingbackground.h"
 #include "playerprojectile.h"
 #include "enemyprojectile.h"
+#include "explosion.h"
 
 /**
   This class will be the window in which the game is run.  It will be filled with GUITiles which the user will ineract with.
@@ -80,6 +81,7 @@ private:
 	int timerX;
 	int timerY;
 	int scoreCount;
+	int timerClouds;
 
 	QVector<Thing*> things_;
 	QVector<Thing*> health_;
@@ -103,6 +105,8 @@ private:
 	QPixmap * boss1Image;
 	QPixmap * boss2Image;
 	QPixmap * boss3Image;
+	QPixmap * explosionImage;
+	QPixmap * explosion2Image;
 	QString scoreString;
 	Player * player;
 	Health * health;
