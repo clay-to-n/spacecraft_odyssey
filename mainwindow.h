@@ -20,9 +20,13 @@
 #include <QKeyEvent>
 #include <ostream>
 #include <string>
+#include <vector>
+#include <fstream>
 #include <QGraphicsSimpleTextItem>
 #include "gamewindow.h"
+#include "scoreentry.h"
 
+using namespace std;
 
 #define WINDOW_MAX_X 250
 #define WINDOW_MAX_Y 350
@@ -48,18 +52,16 @@ private:
     QGraphicsScene *scene;
     QVBoxLayout *gameLayout;
     QVBoxLayout *consoleLayout;
-    
     QLineEdit *playerName;
     QRadioButton *normalMode;
     QRadioButton *invincibleMode;
     QListWidget *messageDisplay;
+    vector<ScoreEntry> ScoreList;
     void keyPressEvent(QKeyEvent *e );
     void keyReleaseEvent(QKeyEvent *e );
+    void loadScores();
  
-
-
 public slots:
-    
     void startPauseGame();
     void quitGame();
 

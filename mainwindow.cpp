@@ -53,6 +53,7 @@ MainWindow::MainWindow()
     vertLayout->addLayout(modeButtonLayout);
 
     this->setLayout(vertLayout);
+    loadScores();
 
 }
 
@@ -118,6 +119,32 @@ void MainWindow::keyReleaseEvent(QKeyEvent *e )
             gameView->pressedSpace = false;
             break;
     }
+}
+
+/** Loads the scores present in the scores.txt file*/
+void MainWindow::loadScores()
+{
+    ScoreList.clear();
+    ifstream fin;
+    fin.open("scores.txt");
+    string tempString;
+    int tempScore;
+
+    fin >> tempScore;
+    while (fin != NULL)
+    {
+        getline(fin, tempString);
+        QString tempQString = QString::fromStdString(tempString);
+        ScoreEntry tempEntry(tempQString, tempScore);
+        ScoreList.push_back(tempEntry);
+        fin >> tempScore;
+    }
+
+    for (int i = 0; i < ScoreList.size(); i++)
+    {
+        cout << ScoreList.at(i).getName().toStdString() << " " << ScoreList.at(i).getScore() << '\n';
+    }
+
 }
 
 /** Starts the game if the user has entered in their name and chosen a game mode.  If the game has already started, this button pauses it.  If the game is paused, this button resumes it.
