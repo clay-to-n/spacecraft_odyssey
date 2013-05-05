@@ -21,3 +21,10 @@ Thing::~Thing()
 {
 
 }
+
+void Thing::setIntVel(int vx, int vy)
+{
+	vx_ = vx;
+	vy_ = vy;
+
+}

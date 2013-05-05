@@ -16,7 +16,8 @@ GameWindow::GameWindow()  {
 	view->show();
 		
 	healthImage = new QPixmap ("sprites/health_bar.png");
-	healthItemImage = new QPixmap ("sprites/health_item.png");	
+	healthItemImage = new QPixmap ("sprites/health_item.png");
+	scoreItemImage = new QPixmap ("sprites/points_item.png");	
 	playerProjectileImage = new QPixmap ("sprites/player_projectile.png");
 	enemyProjectileImage = new QPixmap ("sprites/enemy_projectile.png");
 	bossProjectileImage = new QPixmap ("sprites/boss_projectile.png");
@@ -192,6 +193,21 @@ void GameWindow::handleTimer()
 	//For every thing
     for (int i = 0; i < things_.size(); i++)
     {
+    	//To get points to move toward the player
+    	if (dynamic_cast<ScoreItem*>(things_.at(i)) != NULL && things_.at(i)->cooldown > 50 && things_.at(i)->cooldown % 15 == 0)
+    	{
+    		if (things_.at(i)->x() < things_.at(0)->x() && things_.at(i)->y() < things_.at(0)->y())
+    			things_.at(i)->setIntVel(3, 3);
+    		else if (things_.at(i)->x() < things_.at(0)->x() && things_.at(i)->y() > things_.at(0)->y())
+    			things_.at(i)->setIntVel(3, -3);
+    		else if (things_.at(i)->x() > things_.at(0)->x() && things_.at(i)->y() < things_.at(0)->y())
+    			things_.at(i)->setIntVel(-3, 3);
+    		else if (things_.at(i)->x() > things_.at(0)->x() && things_.at(i)->y() > things_.at(0)->y())
+    			things_.at(i)->setIntVel(-3, -3);
+
+
+    	}
+
     	//To get enemies to shoot
     	if (things_.at(i)->shoots)
     	{
@@ -253,10 +269,9 @@ void GameWindow::handleTimer()
 			{
 				if (dynamic_cast<Player*>(things_.at(i)) != NULL || dynamic_cast<PlayerProjectile*>(things_.at(i)) != NULL) 
 				{
-					if (dynamic_cast<EnemyProjectile*>(things_.at(j)) != NULL || dynamic_cast<EnemyCloseRange*>(things_.at(j)) != NULL || dynamic_cast<EnemyLongRange*>(things_.at(j)) != NULL || dynamic_cast<EnemyBoss*>(things_.at(j)) != NULL) {
+					if (dynamic_cast<EnemyProjectile*>(things_.at(j)) != NULL || dynamic_cast<EnemyCloseRange*>(things_.at(j)) != NULL || dynamic_cast<EnemyLongRange*>(things_.at(j)) != NULL || dynamic_cast<EnemyBoss*>(things_.at(j)) != NULL ) {
 						-- things_.at(j)->health_ ;
 	    				-- things_.at(i)->health_ ;
-	    				scoreCount += things_.at(j)->score;
 	    				
 	    				//If it hit the player, remove it and decrease health
 	    				if (dynamic_cast<Player*>(things_.at(i)) != NULL)
@@ -302,6 +317,14 @@ void GameWindow::handleTimer()
 							scene->addItem(health);
 						}
 					}
+
+					//To check if the player picked up Score item
+					if (dynamic_cast<Player*>(things_.at(i)) != NULL && dynamic_cast<ScoreItem*>(things_.at(j)) != NULL)
+					{
+							things_.at(j)->health_ = 0;
+							scoreCount += things_.at(j)->score;
+							
+					}
 					
 
 				}
@@ -335,12 +358,23 @@ void GameWindow::handleTimer()
     	if (things_.at(i)->health_ < 1)
     	{
     		//If they're dead, let's show an image
-    		if (dynamic_cast<HealthItem*>(things_.at(i)) == NULL && dynamic_cast<Explosion*>(things_.at(i)) == NULL)
+    		if (dynamic_cast<HealthItem*>(things_.at(i)) == NULL && dynamic_cast<Explosion*>(things_.at(i)) == NULL && dynamic_cast<ScoreItem*>(things_.at(i)) == NULL)
     		{
 	    		Explosion * explode = new Explosion(*explosionImage, this, scene);
 	    		things_.push_back(explode);
 	    		explode->setIntPos(things_.at(i)->x(), things_.at(i)->y());
 	    		scene->addItem(explode);
+
+	    		//Let's also create Points
+	    		for (int k = 0; k < (things_.at(i)->score)/5; k++)
+	    		{
+	    			ScoreItem * scoreItem = new ScoreItem(*scoreItemImage, this, scene);
+	    			things_.push_back(scoreItem);
+	    			scoreItem->setIntPos(things_.at(i)->x(), things_.at(i)->y());
+	    			scoreItem->random = i;
+	    			scene->addItem(scoreItem);
+
+	    		}
 	    	}
 	    	if (dynamic_cast<Explosion*>(things_.at(i)) != NULL)
     		{

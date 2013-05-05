@@ -39,6 +39,7 @@
 #include "playerprojectile.h"
 #include "enemyprojectile.h"
 #include "explosion.h"
+#include "scoreitem.h"
 
 /** This class will be the window in which the game is run.  It will be filled with the player, enemies, items, and scrolling backgrounds.
   */
@@ -104,6 +105,7 @@ private:
 	MainWindow * mainWindow_;
 	QPixmap * healthImage;
 	QPixmap * healthItemImage;
+	QPixmap * scoreItemImage;
 	QPixmap * playerProjectileImage;	
 	QPixmap * enemyProjectileImage;
 	QPixmap * bossProjectileImage;
