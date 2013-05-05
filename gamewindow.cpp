@@ -454,6 +454,54 @@ void GameWindow::handleTimer()
     if (player->health_ < 1) {
     	timer->stop();
     	error->setText("You've Died!  Quit and Restart to play again.");
+
+    	//Add his score to the high score list, and display the high score list
+    	QBrush * greenBrush = new QBrush(QColor(51,222,95,250));
+		QFont * font = new QFont();
+		font->setCapitalization(QFont::AllUppercase);
+		font->setPointSize(13);
+		QGraphicsSimpleTextItem* highScore = new QGraphicsSimpleTextItem;
+    	highScore->setPos(43, 60);
+		highScore->setBrush(*greenBrush);
+		highScore->setFont(*font);
+		highScore->setZValue(8);
+		QString tempText = "High Scores:" ;
+		highScore->setText(tempText);
+		scene->addItem(highScore);
+
+    	if ((ScoreList->size() < 9 || scoreCount > ScoreList->at(ScoreList->size()-1).getScore()))
+    	{
+    		ScoreEntry tempEntry(playerNameString, scoreCount);
+    		ScoreList->push_back(tempEntry);
+    		std::sort(ScoreList->begin(), ScoreList->end());
+    		std::reverse(ScoreList->begin(), ScoreList->end());
+    		if (ScoreList->size() > 10)
+    			ScoreList->pop_back();
+
+    	}
+
+		ofstream fout;
+		fout.open("scores.txt");
+
+		for (unsigned int i = 0; i < ScoreList->size(); i++)
+	    {
+	    	QGraphicsSimpleTextItem* scoreDisplay = new QGraphicsSimpleTextItem;
+	    	scoreDisplay->setPos(43, 120+(i*30));
+			scoreDisplay->setBrush(*greenBrush);
+			scoreDisplay->setFont(*font);
+			scoreDisplay->setZValue(8);
+			tempText = "        ";
+			tempText += QString::number(ScoreList->at(i).getScore());
+			tempText += ": ";
+			tempText += ScoreList->at(i).getName();
+			scoreDisplay->setText(tempText);
+			scene->addItem(scoreDisplay);
+
+	        fout << ScoreList->at(i).getScore() << ' ';
+	        fout << ScoreList->at(i).getName().toStdString() << '\n';
+	    }
+
+	    fout.close();
     }
 
     //To update player's score

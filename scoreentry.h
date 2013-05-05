@@ -15,10 +15,10 @@ class ScoreEntry
     ~ScoreEntry();
     int getScore();
     QString getName();
-    
-    bool operator<(const ScoreEntry& r);
-    bool operator>(const ScoreEntry& r);
-    bool operator==(const ScoreEntry& r);
+
+    bool operator<(const ScoreEntry& r) const;
+    bool operator>(const ScoreEntry& r) const;
+    bool operator==(const ScoreEntry& r) const;
 
   private:
     QString name_;

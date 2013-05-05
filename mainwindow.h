@@ -46,6 +46,8 @@ public:
     ~MainWindow();
     bool started;
     GameWindow *gameView;
+    vector<ScoreEntry> ScoreList;
+
     
 private:
     QString name;
@@ -56,7 +58,6 @@ private:
     QRadioButton *normalMode;
     QRadioButton *invincibleMode;
     QListWidget *messageDisplay;
-    vector<ScoreEntry> ScoreList;
     void keyPressEvent(QKeyEvent *e );
     void keyReleaseEvent(QKeyEvent *e );
     void loadScores();

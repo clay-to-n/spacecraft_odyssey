@@ -26,7 +26,9 @@
 #include <QString>
 #include <cmath>
 #include <iostream>
+#include <fstream>
 #include "mainwindow.h"
+#include "scoreentry.h"
 #include "player.h"
 #include "health.h"
 #include "healthitem.h"
@@ -40,6 +42,9 @@
 
 /** This class will be the window in which the game is run.  It will be filled with the player, enemies, items, and scrolling backgrounds.
   */
+
+using namespace std;
+
 class MainWindow;
 
 class GameWindow : public QGraphicsView
@@ -59,11 +64,14 @@ public:
 	bool invincibleMode;
 	static const int xSize_ = 482;
 	static const int ySize_ = 582;
+	QString playerNameString;
 	QGraphicsSimpleTextItem* playerName;
 	QGraphicsSimpleTextItem* playerScore;
 	void setMainWindow(MainWindow *mainWindow);
 	void startGame();
 	void startInvincibleGame();
+	void displayScores();
+    vector<ScoreEntry>* ScoreList;	
 	/** LineEdit which will display messages to the user */
 	QLineEdit *error;
 	/** Timer which controls all movements and events in the game */
@@ -118,6 +126,7 @@ private:
 	Player * player;
 	/** A health display pointer so we can create and remove health when necessary */
 	Health * health;
+
 
 	
 public slots:

@@ -26,17 +26,17 @@ QString ScoreEntry::getName()
 	return name_;
 }
 
-bool ScoreEntry::operator<(const ScoreEntry& r)
+bool ScoreEntry::operator<(const ScoreEntry& r) const
 {
 	return (score_ < r.score_);
 }
 
-bool ScoreEntry::operator>(const ScoreEntry& r)
+bool ScoreEntry::operator>(const ScoreEntry& r) const
 {
 	return (score_ > r.score_);
 }
 
-bool ScoreEntry::operator==(const ScoreEntry& r)
+bool ScoreEntry::operator==(const ScoreEntry& r) const
 {
 	return (score_ == r.score_);
 }

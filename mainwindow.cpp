@@ -133,6 +133,7 @@ void MainWindow::loadScores()
     fin >> tempScore;
     while (fin != NULL)
     {
+        fin.ignore(5, ' ');
         getline(fin, tempString);
         QString tempQString = QString::fromStdString(tempString);
         ScoreEntry tempEntry(tempQString, tempScore);
@@ -140,11 +141,7 @@ void MainWindow::loadScores()
         fin >> tempScore;
     }
 
-    for (int i = 0; i < ScoreList.size(); i++)
-    {
-        cout << ScoreList.at(i).getName().toStdString() << " " << ScoreList.at(i).getScore() << '\n';
-    }
-
+    gameView->ScoreList = &ScoreList;
 }
 
 /** Starts the game if the user has entered in their name and chosen a game mode.  If the game has already started, this button pauses it.  If the game is paused, this button resumes it.
@@ -154,6 +151,7 @@ void MainWindow::startPauseGame()
     if (started == false && normalMode->isChecked() && playerName->text() != NULL)
     {
         gameView->playerName->setText(playerName->text());
+        gameView->playerNameString = playerName->text();
         gameView->startGame();
         setFocus();
         started = true;
@@ -162,6 +160,7 @@ void MainWindow::startPauseGame()
     if (started == false && invincibleMode->isChecked() && playerName->text() != NULL)
     {
         gameView->playerName->setText(playerName->text());
+        gameView->playerNameString = playerName->text();
         gameView->startInvincibleGame();
         setFocus();
         started = true;
