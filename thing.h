@@ -32,6 +32,7 @@ class Thing : public QGraphicsPixmapItem
     int level;
     int health_;
     int score;
+    int random;
     void setIntVel(int vx, int vy);
 
   protected:

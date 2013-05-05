@@ -194,7 +194,7 @@ void GameWindow::handleTimer()
     for (int i = 0; i < things_.size(); i++)
     {
     	//To get points to move toward the player
-    	if (dynamic_cast<ScoreItem*>(things_.at(i)) != NULL && things_.at(i)->cooldown > 50 && things_.at(i)->cooldown % 15 == 0)
+    	if (dynamic_cast<ScoreItem*>(things_.at(i)) != NULL && things_.at(i)->cooldown > 50 && things_.at(i)->cooldown % 15-things_.at(i)->random == 0)
     	{
     		if (things_.at(i)->x() < things_.at(0)->x() && things_.at(i)->y() < things_.at(0)->y())
     			things_.at(i)->setIntVel(3, 3);

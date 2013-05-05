@@ -26,7 +26,7 @@ class ScoreItem : public Thing
     ScoreItem(QPixmap &pixmap, GameWindow *parent, QGraphicsScene *scene);
     ~ScoreItem();
     void setIntPos(int x, int y);
-    int random;
+    
 
   private:
     QGraphicsScene *scene_;
