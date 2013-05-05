@@ -156,7 +156,7 @@ void GameWindow::startInvincibleGame()
 	levelCount = 0;
 	timerMax = 400;
 	timer->start();
-		error->setText("Move using WASD keys.  Shoot with Spacebar.  You're invincible!");
+	error->setText("Move using WASD keys.  Shoot with Spacebar.  You're invincible!");
 
 }
 
@@ -183,10 +183,10 @@ void GameWindow::handleTimer()
 		clouds_->move();
 		clouds2_->move();	
 		if (clouds_->y() == -4360 ) {
-				clouds2_->setIntPos(0, -(4360+4460+505));
+			clouds2_->setIntPos(0, -(4360+4460+505));
 		}
 		if (clouds2_->y() == -4360 ) {
-				clouds_->setIntPos(0, -(4360+4460+540));
+			clouds_->setIntPos(0, -(4360+4460+540));
 		}
 	}
 	
@@ -491,8 +491,9 @@ void GameWindow::handleTimer()
 	}		
 
 	//To shoot player projectiles
-	if (pressedSpace && timerCount % 30 == 0)
+	if (pressedSpace && things_.at(0)->cooldown > 30)
 	{
+		things_.at(0)->cooldown = 0;
         PlayerProjectile * playerBullet = new PlayerProjectile(*playerProjectileImage, this, scene);
         things_.push_back(playerBullet);
         playerBullet->setIntPos(((things_.at(0)->x())+.45*(things_.at(0)->pixmap().width())), ((things_.at(0)->y())+10));
