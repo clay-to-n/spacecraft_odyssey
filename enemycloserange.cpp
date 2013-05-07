@@ -20,6 +20,7 @@ EnemyCloseRange::EnemyCloseRange(QPixmap & pixmap, GameWindow * parent, QGraphic
     health_ = 1;
     score = 20;
     setPos(x_, y_);
+    cooldown = 0;
 }
 
 /** Destructor */
@@ -31,7 +32,9 @@ EnemyCloseRange::~EnemyCloseRange()
 /** Moves the EnemyCloseRange according to it's y-velocity */
 void EnemyCloseRange::move()
 {
+    cooldown++;
     y_ += vy_;
+    x_ += vx_;
     if (y_ > parent_->ySize_ )
         offscreen = true;
     setPos(x_, y_);

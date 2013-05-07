@@ -12,6 +12,7 @@ Player::Player(QPixmap & pixmap, GameWindow * parent, QGraphicsScene *scene) : T
     shoots = false;
     scene_ = scene;
     parent_ = parent;
+    cooldown = 30;
     x_ = 200;
     y_ = 500;
     setZValue(6);
@@ -29,6 +30,8 @@ Player::~Player()
 */
 void Player::move()
 {
+    cooldown ++;
+
     if (parent_->pressedD){
         if ((x_+pixmap().width()+4) < parent_->xSize_)
             x_ += 2;
