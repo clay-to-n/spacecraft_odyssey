@@ -9,12 +9,18 @@ When the executable is run, the player will be met with the main window.  They w
 The player must enter a name and choose a gamemode before the game will begin.
 
 ### Graphical User Interface
-Once the game has been started, the user's health will appear in the bottom of the screen along with their name and their current points (which will start at 0).  The user will have five health, which will be indicated by five green bars.  Points will be awarded when enemies are defeated.
+Once the game has been started, the user's health will appear in the bottom of the screen along with their name and their current points (which will start at 0).  The user will have five health, which will be indicated by five green bars.  Points will be released when enemies are defeated.
 
 ----
 
-### Grading: Five Things
-The five things to be graded are the enemy projectiles, the bosses, the long-range enemies, the moving background, and the health items.
+### Grading / Extra Credit: Seven Things
+The seven things to be graded are the enemy projectiles, the bosses, the point items, the close-range enemies, the moving background, the health items, and the "health" (icons displayed on the screen - these are the only unmoving things).
+
+High scores are viewable when the player dies - they are not viewable in Invincible Mode, since the player cannot die.  They are written to the file "scores.txt".  
+
+Three levels are designated by changes in enemy sprites, enemy movements, game speed, and bosses.
+
+AI is present in two things: The points items, which are spawned when enemies are defeated, and move to the player (upon which the player's point total goes up), and the close-range enemies (which move towards the player based on the current level and the player's position).
 
 ### Player
 The player's ship will begin in the bottom center of the window, and the player will control it's movements.  The player will not be able to move off the screen in any direction.  The player will likely spend most of the game near the bottom of the screen.
@@ -35,6 +41,9 @@ The player starts with five health, and when damage is dealt (by colliding with 
 Health items will spawn periodically, and move downwards toward the player.  If the player picks them up they will regain one health (only up to the maximum five.
 
 In the invincible gamemode, whenever the player's health reaches 0, it is reset to 5, so that they cannot die.
+
+### Points
+When enemies are defeated, points are created.  Points move from their initial position toward the player.  When the player touches them, they disappear and the the player's point total (in the corner of the screen) increases at a rate of 5 per point item.  Harder enemies release more point items.
 
 ----
 
