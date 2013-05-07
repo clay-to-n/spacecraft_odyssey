@@ -31,7 +31,7 @@ ScoreItem::~ScoreItem()
 
 }
 
-/** Sets the position of the Background as well as updating the x_ and y_ data members to reflect this.
+/** Sets the position of the Score Item as well as updating the x_ and y_ data members to reflect this.
 * @param x The x position to use
 * @param y The y position to use
 */
