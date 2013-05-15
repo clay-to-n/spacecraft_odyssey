@@ -225,8 +225,7 @@ void GameWindow::handleTimer()
 
     	//To get close-range enemies to move toward the player
     	if (dynamic_cast<EnemyCloseRange*>(things_.at(i)) != NULL) {
-    		if (((levelCount%3==0) && ((things_.at(i)->cooldown % 3) == 1)) || ((levelCount%3>0) && ((things_.at(i)->cooldown % 5) > 2)))
-    		{
+			if ((((levelCount%3 == 0) && ((things_.at(i)->cooldown % 3) == 1))) ||  ((levelCount%3 == 1) && ((things_.at(i)->cooldown % 5) > 2)) || ((levelCount%3 == 2) && ((things_.at(i)->cooldown % 4) > 1)))    		{
 	    		if (things_.at(i)->x() < things_.at(0)->x())
 	    		{
 	    			things_.at(i)->setIntVel(1, 2);
